@@ -8,8 +8,8 @@
     <style>
         * { 
             box-sizing: border-box; 
-            /* PURE WHITE CROSSHAIR */
-            cursor: crosshair;
+            /* PURE WHITE CUSTOM CROSSHAIR */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2"/></svg>') 12 12, crosshair;
         }
         
         body, html {
@@ -135,12 +135,13 @@
             filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
         }
 
-        /* SVG Roblox Icon Styling */
+        /* REAL ROBLOX ICON (Tilted Square SVG) */
         .roblox-svg {
             width: 24px;
             height: 24px;
             fill: white;
             transition: 0.3s;
+            transform: rotate(-10deg);
         }
 
         .icon-label {
@@ -166,7 +167,7 @@
 
         .socials a:hover .icon-label { opacity: 1; top: 45px; }
 
-        /* 5. VIEW COUNTER & EYE */
+        /* 5. VIEW COUNTER & EYE FIX */
         .view-counter {
             position: absolute;
             bottom: 25%;
@@ -180,12 +181,16 @@
 
         .view-counter i {
             font-size: 1.1rem;
-            transition: 0.2s;
+            display: inline-block;
+            width: 20px;
+            text-align: center;
         }
 
-        /* STAY CLOSED ON HOVER */
+        /* EYE STAYS CLOSED ON HOVER */
         .view-counter:hover i::before {
-            content: "\f070"; /* FontAwesome code for Eye-Slash (Closed) */
+            content: "\f070" !important; /* Eye-slash icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
         }
 
         #busuanzi_value_site_pv {
@@ -225,7 +230,7 @@
                 </a>
                 <a href="https://roblox.com/users/YOUR_ID" target="_blank">
                     <svg class="roblox-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18.5 18.5h-13v-13h13v13zM14.5 14.5h-5v-5h5v5zM24 0H0v24h24V0z"/>
+                        <path d="M4.653 0L24 5.347V19.347L19.347 24L0 18.653V4.653L4.653 0ZM14.907 14.16L17.227 9.84L12.907 7.52L10.587 11.84L14.907 14.16Z"/>
                     </svg>
                     <span class="icon-label">Roblox</span>
                 </a>
