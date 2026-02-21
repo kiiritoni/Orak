@@ -142,7 +142,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Official Roblox Tilt */
             transform: rotate(-10deg); 
             transition: 0.3s;
         }
@@ -177,41 +176,9 @@
 
         .socials a:hover .icon-label { opacity: 1; top: 45px; }
 
-        /* 5. VIEW COUNTER & EYE BLINK */
-        .view-counter {
-            position: absolute;
-            bottom: 25%;
-            right: 25%;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-
-        .view-counter i {
-            font-size: 1.1rem;
-            display: inline-block;
-            width: 20px;
-            text-align: center;
-            transition: transform 0.1s ease;
-        }
-
-        .view-counter:hover i {
-            transform: scaleY(0.1);
-            color: #fff;
-        }
-
-        #busuanzi_value_site_pv {
-            font-family: 'monospace';
-            letter-spacing: 1px;
-        }
-
     </style>
 </head>
 <body>
-
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <div id="entry-gate" onclick="unlock()">
         <div class="gate-circle">click ts rn</div>
@@ -247,13 +214,6 @@
                 </a>
             </div>
         </div>
-    </div>
-
-    <div class="view-counter">
-        <i class="far fa-eye"></i>
-        <span id="busuanzi_container_site_pv">
-            <span id="busuanzi_value_site_pv">--</span>
-        </span>
     </div>
 
     <script>
