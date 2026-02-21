@@ -8,15 +8,12 @@
     <style>
         * { 
             box-sizing: border-box; 
-            /* SMALLER CROSSHAIR: Standard crosshair size is fixed, 
-               but this ensures it stays crisp and thin */
             cursor: crosshair; 
         }
         
         body, html {
             margin: 0;
             padding: 0;
-            /* BACKGROUND TINT: Reduced from 0.4 to 0.2 (much lighter) */
             background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('bg.jpg') no-repeat center center fixed;
             background-size: cover;
             background-color: #000;
@@ -30,7 +27,7 @@
             align-items: center;
         }
 
-        /* 1. ENTRY GATE (Back to Red) */
+        /* 1. ENTRY GATE */
         #entry-gate {
             position: fixed;
             top: 0;
@@ -50,12 +47,12 @@
         .gate-circle {
             width: 140px;
             height: 140px;
-            border: 1px solid #ff0000; /* BACK TO RED */
+            border: 1px solid #ff0000;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ff0000; /* BACK TO RED */
+            color: #ff0000;
             text-transform: lowercase;
             font-size: 0.8rem;
             letter-spacing: 1px;
@@ -118,27 +115,26 @@
             max-width: 250px;
         }
 
-        /* 4. WHITE GLOWING ICONS */
+        /* 4. SOCIAL ICONS */
         .socials {
             display: flex;
             gap: 20px;
         }
 
         .socials a {
-            color: #ffffff; /* CHANGED TO WHITE */
+            color: #ffffff;
             font-size: 1.8rem;
             text-decoration: none;
             transition: 0.3s;
             position: relative;
             display: flex;
             justify-content: center;
-            /* Added subtle white glow */
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
         }
 
         .icon-label {
             position: absolute;
-            top: 40px; /* Labels UNDER icon */
+            top: 40px; 
             font-size: 0.65rem;
             color: #fff;
             opacity: 0;
@@ -148,15 +144,59 @@
         }
 
         .socials a:hover { 
-            color: #ff0000; /* Turns red on hover for contrast */
+            color: #ff0000; 
             transform: scale(1.15); 
             filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
         }
+
+        /* Special Hover for Roblox (Silver/Grey) */
+        .socials a.roblox-link:hover {
+            color: #adb5bd;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
         .socials a:hover .icon-label { opacity: 1; top: 45px; }
+
+        /* 5. VIEW COUNTER & BLINKING EYE */
+        .view-counter {
+            position: absolute;
+            bottom: 25%;
+            right: 25%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .view-counter i {
+            font-size: 1.1rem;
+            transition: transform 0.1s ease;
+        }
+
+        /* Blink Animation on Hover */
+        .view-counter:hover i {
+            animation: blink 0.3s ease;
+            color: #fff;
+        }
+
+        @keyframes blink {
+            0% { transform: scaleY(1); }
+            50% { transform: scaleY(0.1); }
+            100% { transform: scaleY(1); }
+        }
+
+        #busuanzi_value_site_pv {
+            font-family: 'monospace';
+            letter-spacing: 1px;
+        }
 
     </style>
 </head>
 <body>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <div id="entry-gate" onclick="unlock()">
         <div class="gate-circle">click ts rn</div>
@@ -171,7 +211,7 @@
         
         <div class="info">
             <h2>Kiritoni</h2>
-            <p>GREEN FN</p>
+            <p>2026 digital presence. Building things.</p>
             
             <div class="socials">
                 <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank">
@@ -182,8 +222,19 @@
                     <i class="fab fa-discord"></i>
                     <span class="icon-label">Discord</span>
                 </a>
+                <a href="https://roblox.com/users/YOUR_ID" target="_blank" class="roblox-link">
+                    <i class="fas fa-gamepad"></i>
+                    <span class="icon-label">Roblox</span>
+                </a>
             </div>
         </div>
+    </div>
+
+    <div class="view-counter">
+        <i class="far fa-eye"></i>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv">--</span>
+        </span>
     </div>
 
     <script>
