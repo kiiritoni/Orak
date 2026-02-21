@@ -14,7 +14,7 @@
         body, html {
             margin: 0;
             padding: 0;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('bg.jpg') no-repeat center center fixed;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('bg.jpg') no-repeat center center fixed;
             background-size: cover;
             background-color: #000;
             color: #fff;
@@ -90,25 +90,24 @@
             z-index: 100;
         }
 
-        /* PFP WITH WHITE GLOW */
         .pfp {
             width: 110px;
             height: 110px;
             border-radius: 50%;
             border: 2px solid white;
             object-fit: cover;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* THE WHITE GLOW */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
         }
 
-        /* VISUALIZER - CENTERED */
+        /* VISUALIZER */
         .visualizer-wrapper {
             width: 100%;
             height: 45px;
             margin-bottom: 8px;
             display: flex;
-            justify-content: center; /* Center bars horizontally */
+            justify-content: center;
             align-items: flex-end;
-            filter: drop-shadow(0 0 6px #ff0000); /* THE RED GLOW */
+            filter: drop-shadow(0 0 6px #ff0000);
         }
 
         canvas {
@@ -119,7 +118,7 @@
         .info {
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center name and links under visualizer */
+            align-items: center;
         }
 
         .info h2 {
@@ -131,17 +130,17 @@
         }
 
         .info p {
-            margin: 5px 0 15px 0;
+            margin: 5px 0 20px 0;
             color: #ececec; 
             font-size: 0.95rem;
             font-weight: 700;
             letter-spacing: 2px;
         }
 
-        /* SOCIALS */
+        /* SOCIALS & HOVER FIXES */
         .socials {
             display: flex;
-            gap: 20px;
+            gap: 25px;
             align-items: center;
         }
 
@@ -149,7 +148,11 @@
             color: #ffffff;
             font-size: 1.8rem;
             text-decoration: none;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .roblox-wrapper {
@@ -158,11 +161,44 @@
             transform: rotate(-10deg); 
             display: flex;
             align-items: center;
+            transition: transform 0.3s ease;
         }
 
-        .roblox-svg { width: 100%; height: 100%; fill: white; }
+        /* Target the SVG path specifically for Roblox color change */
+        .roblox-svg { 
+            width: 100%; 
+            height: 100%; 
+            fill: #ffffff; 
+            transition: fill 0.3s ease;
+        }
 
-        .socials a:hover { color: #ff0000; transform: scale(1.1); }
+        .icon-label {
+            position: absolute;
+            bottom: -25px; /* Positioned below the icon */
+            font-size: 0.65rem;
+            color: #ff0000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* Universal Hover Effects */
+        .socials a:hover { 
+            color: #ff0000; 
+            transform: scale(1.1); 
+        }
+
+        .socials a:hover .roblox-svg { 
+            fill: #ff0000; 
+        }
+
+        .socials a:hover .icon-label { 
+            opacity: 1; 
+            bottom: -20px; 
+        }
 
         /* COPYRIGHT */
         .copyright {
@@ -203,12 +239,19 @@
             <p>GREEN FN</p>
             
             <div class="socials">
-                <a href="https://www.youtube.com/@K1ritoni" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://discord.gg/sxygV7MNjG" target="_blank"><i class="fab fa-discord"></i></a>
+                <a href="https://www.youtube.com/@K1ritoni" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                    <span class="icon-label">YouTube</span>
+                </a>
+                <a href="https://discord.gg/sxygV7MNjG" target="_blank">
+                    <i class="fab fa-discord"></i>
+                    <span class="icon-label">Discord</span>
+                </a>
                 <a href="https://www.roblox.com/users/7035287/profile" target="_blank">
                     <div class="roblox-wrapper">
                         <svg class="roblox-svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm14.5 14.5v-5h-5v5h5z"/></svg>
                     </div>
+                    <span class="icon-label">Roblox</span>
                 </a>
             </div>
         </div>
@@ -257,11 +300,8 @@
             let x = 0;
 
             for (let i = 0; i < dataArray.length; i++) {
-                // Slower/Lower sensitivity (0.8x instead of 1.5x)
                 const barHeight = (dataArray[i] / 255) * canvas.height * 0.8;
                 ctx.fillStyle = 'white';
-                
-                // Draw bars
                 ctx.fillRect(x, canvas.height - barHeight, barWidth - 3, barHeight);
                 x += barWidth;
             }
