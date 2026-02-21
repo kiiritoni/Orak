@@ -8,10 +8,13 @@
     <style>
         * { box-sizing: border-box; }
         
-        body, html {
+     body, html {
             margin: 0;
             padding: 0;
-            background-color: #000;
+            /* This creates a moving dark red/black gradient */
+            background: linear-gradient(45deg, #000000, #1a0000, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: #fff;
             font-family: 'Inter', -apple-system, sans-serif;
             height: 100vh;
@@ -20,6 +23,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        /* This makes the background move */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* 1. ENTRY GATE */
@@ -186,3 +196,4 @@
 
 </body>
 </html>
+
