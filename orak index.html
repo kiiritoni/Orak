@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orak</title>
+    <style>
+        /* The "Shock" Aesthetic Base */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #050505; /* Deep black */
+            color: #fff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .main-card {
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        /* Red Neon Header */
+        h1 {
+            font-size: 3.5rem;
+            margin: 0 0 20px 0;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            font-weight: 900;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            /* This makes it "aesthetic" */
+            filter: drop-shadow(0 0 5px #ff0000);
+        }
+
+        /* Social Link Buttons */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .link-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            padding: 16px;
+            border-radius: 4px;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: lowercase;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover Effect: The "Glow" */
+        .link-item:hover {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Simple Subtitle */
+        p {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-card">
+        <h1>ORAK</h1>
+        <p>digital presence / 2026</p>
+        
+        <div class="links-container">
+            <a href="https://discord.gg/yourlink" class="link-item">discord</a>
+            <a href="https://instagram.com/yourlink" class="link-item">socials</a>
+            <a href="https://github.com/yourlink" class="link-item">projects</a>
+        </div>
+    </div>
+
+</body>
+</html>
