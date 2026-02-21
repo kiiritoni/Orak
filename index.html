@@ -14,7 +14,7 @@
         body, html {
             margin: 0;
             padding: 0;
-            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('bg.jpg') no-repeat center center fixed;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('bg.jpg') no-repeat center center fixed;
             background-size: cover;
             background-color: #000;
             color: #fff;
@@ -62,11 +62,11 @@
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.5; box-shadow: 0 0 30px rgba(255, 0, 0, 0.3); }
+            50% { transform: scale(1.1); opacity: 0.5; }
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* 2. ORAK (Top Right) */
+        /* 2. ORAK HEADER */
         .header-name {
             position: absolute;
             top: 30px;
@@ -83,32 +83,31 @@
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
         }
 
-        /* 3. CENTERED BIO */
+        /* 3. CENTERED BIO BOX */
         .bio-box {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 50px;
+            position: relative;
+            z-index: 10;
         }
 
-        /* SPIKY VISUALIZER WRAPPER */
-        .pfp-wrapper {
+        /* VISUALIZER CONTAINER */
+        .visualizer-container {
             position: relative;
-            width: 160px;
-            height: 160px;
+            width: 250px; /* Large enough for spikes to shoot out */
+            height: 250px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        #spike-visualizer {
+        #visualizer-canvas {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: white;
-            /* Creates the initial spike shape */
-            clip-path: polygon(50% 0%, 55% 40%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
-            transition: transform 0.05s linear;
-            z-index: 1;
         }
 
         .pfp {
@@ -117,24 +116,25 @@
             border-radius: 50%;
             background: #000;
             object-fit: cover;
-            z-index: 2;
+            position: relative;
+            z-index: 5;
             border: 2px solid white;
         }
 
         .info h2 {
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 2rem;
             letter-spacing: 1px;
             color: #ffffff;
-            text-shadow: 0 0 5px #ffffff, 0 0 15px rgba(255, 255, 255, 0.6);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         .info p {
             margin: 5px 0 15px 0;
             color: #ececec; 
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         /* 4. SOCIAL ICONS */
@@ -153,7 +153,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
         }
 
         .roblox-wrapper {
@@ -166,25 +165,17 @@
             transition: 0.3s;
         }
 
-        .roblox-svg {
-            width: 100%;
-            height: 100%;
-            fill: white;
-            transition: 0.3s;
-        }
-
+        .roblox-svg { width: 100%; height: 100%; fill: white; transition: 0.3s; }
         .icon-label {
             position: absolute;
             top: 40px; 
             font-size: 0.65rem;
-            color: #fff;
             opacity: 0;
             transition: 0.3s;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
 
-        .socials a:hover { color: #ff0000; transform: scale(1.15); filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5)); }
+        .socials a:hover { color: #ff0000; transform: scale(1.15); }
         .socials a:hover .roblox-svg { fill: #ff0000; }
         .socials a:hover .icon-label { opacity: 1; top: 45px; }
 
@@ -205,8 +196,8 @@
     </div>
 
     <div class="bio-box">
-        <div class="pfp-wrapper">
-            <div id="spike-visualizer"></div>
+        <div class="visualizer-container">
+            <canvas id="visualizer-canvas"></canvas>
             <img src="pfp.jpg" alt="pfp" class="pfp" onerror="this.src='https://via.placeholder.com/150/000/fff?text=?'">
         </div>
         
@@ -236,46 +227,58 @@
     </div>
 
     <script>
-        let audioContext, analyser, dataArray, source;
+        let audioCtx, analyser, source, dataArray, canvas, ctx;
 
-        function initSpikes() {
-            const audio = document.getElementById('bg-music');
-            const spikes = document.getElementById('spike-visualizer');
-            
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            analyser = audioContext.createAnalyser();
-            source = audioContext.createMediaElementSource(audio);
-            
+        function initVisualizer() {
+            canvas = document.getElementById('visualizer-canvas');
+            ctx = canvas.getContext('2d');
+            const music = document.getElementById('bg-music');
+
+            // Resize canvas to match container
+            canvas.width = 250;
+            canvas.height = 250;
+
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioCtx.createAnalyser();
+            source = audioCtx.createMediaElementSource(music);
             source.connect(analyser);
-            analyser.connect(audioContext.destination);
-            
-            analyser.fftSize = 128;
+            analyser.connect(audioCtx.destination);
+
+            analyser.fftSize = 256; 
             const bufferLength = analyser.frequencyBinCount;
             dataArray = new Uint8Array(bufferLength);
 
-            function update() {
-                requestAnimationFrame(update);
+            function draw() {
+                requestAnimationFrame(draw);
                 analyser.getByteFrequencyData(dataArray);
 
-                let sum = 0;
-                for (let i = 0; i < dataArray.length; i++) {
-                    sum += dataArray[i];
-                }
-                let average = sum / dataArray.length;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // Dynamically change the spike points based on audio
-                let boost = average * 0.8; 
-                let scale = 1 + (average / 150);
-                
-                spikes.style.transform = `scale(${scale}) rotate(${average/2}deg)`;
-                spikes.style.opacity = 0.5 + (average / 255);
-                
-                // Redraw spiky polygon points based on intensity
-                let p1 = 50 - (boost/4);
-                let p2 = 50 + (boost/4);
-                spikes.style.clipPath = `polygon(50% 0%, ${50+boost/10}% 40%, 100% 50%, ${50+boost/10}% 60%, 50% 100%, ${50-boost/10}% 60%, 0% 50%, ${50-boost/10}% 40%)`;
+                const centerX = canvas.width / 2;
+                const centerY = canvas.height / 2;
+                const radius = 60; // Just outside the PFP
+                const bars = 80;   // Number of spikes
+
+                for (let i = 0; i < bars; i++) {
+                    // Get frequency data (focusing on bass/mids)
+                    const barHeight = (dataArray[i] / 255) * 60; 
+
+                    const rads = (Math.PI * 2) / bars;
+                    const x_start = centerX + Math.cos(rads * i) * radius;
+                    const y_start = centerY + Math.sin(rads * i) * radius;
+                    const x_end = centerX + Math.cos(rads * i) * (radius + barHeight);
+                    const y_end = centerY + Math.sin(rads * i) * (radius + barHeight);
+
+                    // Draw the spikes
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(x_start, y_start);
+                    ctx.lineTo(x_end, y_end);
+                    ctx.stroke();
+                }
             }
-            update();
+            draw();
         }
 
         function unlock() {
@@ -283,18 +286,13 @@
             music.volume = 0.5;
             music.play();
 
-            if (!audioContext) {
-                initSpikes();
-            }
+            if (!audioCtx) initVisualizer();
 
             const gate = document.getElementById('entry-gate');
             gate.style.transform = 'scale(2)';
             gate.style.opacity = '0';
-            setTimeout(() => {
-                gate.style.visibility = 'hidden';
-            }, 800);
+            setTimeout(() => gate.style.visibility = 'hidden', 800);
         }
     </script>
-
 </body>
 </html>
