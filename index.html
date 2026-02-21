@@ -4,45 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orak</title>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
             background-color: #000000;
             color: #ffffff;
             font-family: 'Inter', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
             overflow: hidden;
         }
 
-        .container {
-            text-align: center;
+        /* Entry Overlay */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+            transition: opacity 0.5s ease;
+        }
+
+        .entry-circle {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #ff0000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ff0000;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            text-shadow: 0 0 10px #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Main Content Container */
+        .main-content {
+            height: 100vh;
+            display: flex;
+            align-items: center; /* Vertical center */
+            padding: 0 10%;
+        }
+
+        /* ORAK in Top Right */
+        .top-right-header {
+            position: absolute;
+            top: 40px;
+            right: 60px;
         }
 
         h1 {
-            font-size: 5rem;
+            font-size: 2.5rem; /* Smaller as requested */
             color: #ff0000; 
             text-transform: uppercase;
-            letter-spacing: 12px;
+            letter-spacing: 8px;
             margin: 0;
             font-weight: 900;
             text-shadow: 0 0 5px #ff0000, 0 0 15px rgba(255, 0, 0, 0.5);
         }
 
-        .icon-links {
+        /* Bio Section */
+        .bio-container {
             display: flex;
-            justify-content: center;
-            gap: 40px; 
-            margin-top: 30px;
+            align-items: center;
+            gap: 30px;
         }
 
-        /* The Link Wrapper (needed for the hover name) */
+        .pfp-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid #ff0000;
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .bio-text {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bio-text h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .bio-text p {
+            margin: 0;
+            color: #888;
+            font-size: 0.9rem;
+            max-width: 300px;
+            line-height: 1.4;
+        }
+
+        /* Icons */
+        .icon-links {
+            display: flex;
+            gap: 25px;
+            margin-top: 15px;
+        }
+
         .icon-wrapper {
             position: relative;
             display: flex;
@@ -52,61 +135,13 @@
 
         .icon-links a {
             color: #ff0000;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             text-decoration: none;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 5px #ff0000, 0 0 10px rgba(255, 0, 0, 0.4);
+            transition: 0.3s;
+            text-shadow: 0 0 5px #ff0000;
         }
 
-        /* Hover Label (The Name) */
         .icon-name {
             position: absolute;
-            bottom: -30px; /* Position below the icon */
-            font-size: 0.8rem;
-            color: #ffffff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0; /* Hidden by default */
-            transition: opacity 0.3s ease;
-            text-shadow: 0 0 8px #ffffff;
-            pointer-events: none;
-        }
-
-        /* Hover Effects */
-        .icon-wrapper:hover a {
-            color: #ffffff;
-            text-shadow: 0 0 20px #ffffff;
-            transform: scale(1.2);
-        }
-
-        .icon-wrapper:hover .icon-name {
-            opacity: 1; /* Shows name on hover */
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>ORAK</h1>
-        
-        <div class="icon-links">
-            
-            <div class="icon-wrapper">
-                <a href="https://youtube.com/@yourchannel" target="_blank">
-                    <i class="fab fa-youtube"></i>
-                </a>
-                <span class="icon-name">YouTube</span>
-            </div>
-
-            <div class="icon-wrapper">
-                <a href="https://discord.gg/yourinvite" target="_blank">
-                    <i class="fab fa-discord"></i>
-                </a>
-                <span class="icon-name">Discord</span>
-            </div>
-
-        </div>
-    </div>
-
-</body>
-</html>
+            bottom: -25px;
+            font-size: 0.6rem;
