@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        /* This sets up the look of the whole page */
         body {
             margin: 0;
             padding: 0;
-            background-color: #000000; /* Pure Black */
+            background-color: #000000;
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             display: flex;
@@ -26,41 +25,62 @@
             text-align: center;
         }
 
-     h1 {
+        h1 {
             font-size: 5rem;
             color: #ff0000; 
             text-transform: uppercase;
             letter-spacing: 12px;
             margin: 0;
             font-weight: 900;
-            /* Layer 1: Tight & Bright (Sharpness) | Layer 2: Soft & Wide (Glow) */
-            text-shadow: 
-                0 0 5px #ff0000, 
-                0 0 15px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 5px #ff0000, 0 0 15px rgba(255, 0, 0, 0.5);
         }
 
-        /* The area holding the icons */
         .icon-links {
             display: flex;
             justify-content: center;
-            gap: 40px; /* Space between icons */
+            gap: 40px; 
             margin-top: 30px;
         }
 
-        /* Styling for the icons */
-        .icon-links a {
-            color: #ff0000;
-            font-size: 2.5rem; /* Icon size */
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 10px #ff0000;
+        /* The Link Wrapper (needed for the hover name) */
+        .icon-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* What happens when you put your mouse over the icon */
-        .icon-links a:hover {
-            color: #ffffff; /* Turns white */
+        .icon-links a {
+            color: #ff0000;
+            font-size: 2.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px #ff0000, 0 0 10px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Hover Label (The Name) */
+        .icon-name {
+            position: absolute;
+            bottom: -30px; /* Position below the icon */
+            font-size: 0.8rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease;
+            text-shadow: 0 0 8px #ffffff;
+            pointer-events: none;
+        }
+
+        /* Hover Effects */
+        .icon-wrapper:hover a {
+            color: #ffffff;
             text-shadow: 0 0 20px #ffffff;
-            transform: scale(1.2); /* Grows slightly */
+            transform: scale(1.2);
+        }
+
+        .icon-wrapper:hover .icon-name {
+            opacity: 1; /* Shows name on hover */
         }
     </style>
 </head>
@@ -70,17 +90,23 @@
         <h1>ORAK</h1>
         
         <div class="icon-links">
-            <a href="#" target="_blank" title="YouTube">
-                <i class="fab fa-youtube"></i>
-            </a>
+            
+            <div class="icon-wrapper">
+                <a href="https://youtube.com/@yourchannel" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <span class="icon-name">YouTube</span>
+            </div>
 
-            <a href="#" target="_blank" title="Discord">
-                <i class="fab fa-discord"></i>
-            </a>
+            <div class="icon-wrapper">
+                <a href="https://discord.gg/yourinvite" target="_blank">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <span class="icon-name">Discord</span>
+            </div>
+
         </div>
     </div>
 
 </body>
 </html>
-
-
