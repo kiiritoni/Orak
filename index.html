@@ -8,7 +8,8 @@
     <style>
         * { 
             box-sizing: border-box; 
-            cursor: crosshair; 
+            /* PURE WHITE CROSSHAIR */
+            cursor: crosshair;
         }
         
         body, html {
@@ -119,6 +120,7 @@
         .socials {
             display: flex;
             gap: 20px;
+            align-items: center;
         }
 
         .socials a {
@@ -129,7 +131,16 @@
             position: relative;
             display: flex;
             justify-content: center;
+            align-items: center;
             filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+        }
+
+        /* SVG Roblox Icon Styling */
+        .roblox-svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            transition: 0.3s;
         }
 
         .icon-label {
@@ -149,15 +160,13 @@
             filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
         }
 
-        /* Special Hover for Roblox (Silver/Grey) */
-        .socials a.roblox-link:hover {
-            color: #adb5bd;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        .socials a:hover .roblox-svg {
+            fill: #ff0000;
         }
 
         .socials a:hover .icon-label { opacity: 1; top: 45px; }
 
-        /* 5. VIEW COUNTER & BLINKING EYE */
+        /* 5. VIEW COUNTER & EYE */
         .view-counter {
             position: absolute;
             bottom: 25%;
@@ -167,24 +176,16 @@
             gap: 10px;
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
-            transition: color 0.3s ease;
         }
 
         .view-counter i {
             font-size: 1.1rem;
-            transition: transform 0.1s ease;
+            transition: 0.2s;
         }
 
-        /* Blink Animation on Hover */
-        .view-counter:hover i {
-            animation: blink 0.3s ease;
-            color: #fff;
-        }
-
-        @keyframes blink {
-            0% { transform: scaleY(1); }
-            50% { transform: scaleY(0.1); }
-            100% { transform: scaleY(1); }
+        /* STAY CLOSED ON HOVER */
+        .view-counter:hover i::before {
+            content: "\f070"; /* FontAwesome code for Eye-Slash (Closed) */
         }
 
         #busuanzi_value_site_pv {
@@ -222,8 +223,10 @@
                     <i class="fab fa-discord"></i>
                     <span class="icon-label">Discord</span>
                 </a>
-                <a href="https://roblox.com/users/YOUR_ID" target="_blank" class="roblox-link">
-                    <i class="fas fa-gamepad"></i>
+                <a href="https://roblox.com/users/YOUR_ID" target="_blank">
+                    <svg class="roblox-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.5 18.5h-13v-13h13v13zM14.5 14.5h-5v-5h5v5zM24 0H0v24h24V0z"/>
+                    </svg>
                     <span class="icon-label">Roblox</span>
                 </a>
             </div>
