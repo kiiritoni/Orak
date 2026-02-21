@@ -26,16 +26,17 @@
             text-align: center;
         }
 
-        h1 {
+     h1 {
             font-size: 5rem;
             color: #ff0000; 
             text-transform: uppercase;
-            letter-spacing: 10px; /* Tightened slightly for better focus */
+            letter-spacing: 12px;
             margin: 0;
             font-weight: 900;
-            /* Reduced the layers of shadow to make it crisp */
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
-            filter: contrast(150%); /* This helps sharpen the red against the black */
+            /* Layer 1: Tight & Bright (Sharpness) | Layer 2: Soft & Wide (Glow) */
+            text-shadow: 
+                0 0 5px #ff0000, 
+                0 0 15px rgba(255, 0, 0, 0.5);
         }
 
         /* The area holding the icons */
@@ -81,4 +82,5 @@
 
 </body>
 </html>
+
 
