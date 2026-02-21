@@ -8,12 +8,10 @@
     <style>
         * { box-sizing: border-box; }
         
-   body, html {
+        body, html {
             margin: 0;
             padding: 0;
-            /* This loads your image */
-            background: url('bg.jpg') no-repeat center center fixed; 
-            background-size: cover;
+            background-color: #000;
             color: #fff;
             font-family: 'Inter', -apple-system, sans-serif;
             height: 100vh;
@@ -24,14 +22,7 @@
             align-items: center;
         }
 
-        /* This makes the background move */
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* 1. ENTRY GATE */
+        /* 1. ENTRY GATE (The Blur) */
         #entry-gate {
             position: fixed;
             top: 0;
@@ -71,7 +62,7 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* 2. ORAK (Top Right Only) */
+        /* 2. ORAK (Top Right) */
         .header-name {
             position: absolute;
             top: 30px;
@@ -103,18 +94,21 @@
             border: 1px solid #ff0000;
             background: #111;
             object-fit: cover;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
         }
 
+        /* KIRITONI Glow Effect */
         .info h2 {
             margin: 0;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 0, 0, 0.3);
         }
 
         .info p {
             margin: 5px 0 15px 0;
-            color: #666;
+            color: #777;
             font-size: 0.85rem;
             max-width: 250px;
         }
@@ -135,10 +129,9 @@
             justify-content: center;
         }
 
-        /* Name pops up ABOVE icon */
         .icon-label {
             position: absolute;
-            bottom: 35px; /* Moved above the icon */
+            bottom: 35px; 
             font-size: 0.65rem;
             color: #fff;
             opacity: 0;
@@ -167,7 +160,7 @@
         <img src="pfp.jpg" alt="pfp" class="pfp" onerror="this.src='https://via.placeholder.com/150/000/f00?text=?'">
         
         <div class="info">
-            <h2>Orak</h2>
+            <h2>Kiritoni</h2>
             <p>2026 digital presence. Building things.</p>
             
             <div class="socials">
@@ -195,5 +188,3 @@
 
 </body>
 </html>
-
-
