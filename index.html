@@ -1,96 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orak</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
-        /* The "Shock" Aesthetic Base */
+        /* This sets up the look of the whole page */
         body {
             margin: 0;
             padding: 0;
-            background-color: #050505; /* Deep black */
-            color: #fff;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #000000; /* Pure Black */
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
-        .main-card {
+        .container {
             text-align: center;
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
         }
 
-        /* Red Neon Header */
+        /* The big "Orak" Neon Text */
         h1 {
-            font-size: 3.5rem;
-            margin: 0 0 20px 0;
-            color: #ff0000;
+            font-size: 5rem;
+            color: #ff0000; /* Red */
             text-transform: uppercase;
-            letter-spacing: 8px;
+            letter-spacing: 15px;
+            margin: 0;
             font-weight: 900;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
-            /* This makes it "aesthetic" */
-            filter: drop-shadow(0 0 5px #ff0000);
+            /* This creates the neon glow effect */
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
         }
 
-        /* Social Link Buttons */
-        .links-container {
+        /* The area holding the icons */
+        .icon-links {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            justify-content: center;
+            gap: 40px; /* Space between icons */
+            margin-top: 30px;
         }
 
-        .link-item {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            padding: 16px;
-            border-radius: 4px;
-            color: #ccc;
+        /* Styling for the icons */
+        .icon-links a {
+            color: #ff0000;
+            font-size: 2.5rem; /* Icon size */
             text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: lowercase;
             transition: all 0.3s ease;
+            text-shadow: 0 0 10px #ff0000;
         }
 
-        /* Hover Effect: The "Glow" */
-        .link-item:hover {
-            background: rgba(255, 0, 0, 0.1);
-            border-color: #ff0000;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* Simple Subtitle */
-        p {
-            color: #666;
-            font-size: 0.8rem;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
+        /* What happens when you put your mouse over the icon */
+        .icon-links a:hover {
+            color: #ffffff; /* Turns white */
+            text-shadow: 0 0 20px #ffffff;
+            transform: scale(1.2); /* Grows slightly */
         }
     </style>
 </head>
 <body>
 
-    <div class="main-card">
+    <div class="container">
         <h1>ORAK</h1>
-        <p>digital presence / 2026</p>
         
-        <div class="links-container">
-            <a href="https://discord.gg/yourlink" class="link-item">discord</a> <i class="fab fa-discord"></i>
-            <a href="https://instagram.com/yourlink" class="link-item">socials</a> <i class="fab fa-instagram"></i>
-            <a href="https://github.com/yourlink" class="link-item">projects</a>
+        <div class="icon-links">
+            <a href="#" target="_blank" title="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+
+            <a href="#" target="_blank" title="Discord">
+                <i class="fab fa-discord"></i>
+            </a>
         </div>
     </div>
 
 </body>
-
 </html>
-
