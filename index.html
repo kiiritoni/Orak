@@ -135,13 +135,10 @@
             filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
         }
 
-        /* REAL ROBLOX ICON (Tilted Square SVG) */
-        .roblox-svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-            transition: 0.3s;
+        /* Official Roblox Icon Styling */
+        .fa-square-full {
             transform: rotate(-10deg);
+            font-size: 1.4rem;
         }
 
         .icon-label {
@@ -159,10 +156,6 @@
             color: #ff0000; 
             transform: scale(1.15); 
             filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
-        }
-
-        .socials a:hover .roblox-svg {
-            fill: #ff0000;
         }
 
         .socials a:hover .icon-label { opacity: 1; top: 45px; }
@@ -188,7 +181,7 @@
 
         /* EYE STAYS CLOSED ON HOVER */
         .view-counter:hover i::before {
-            content: "\f070" !important; /* Eye-slash icon */
+            content: "\f070" !important;
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
         }
@@ -229,9 +222,7 @@
                     <span class="icon-label">Discord</span>
                 </a>
                 <a href="https://roblox.com/users/YOUR_ID" target="_blank">
-                    <svg class="roblox-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.653 0L24 5.347V19.347L19.347 24L0 18.653V4.653L4.653 0ZM14.907 14.16L17.227 9.84L12.907 7.52L10.587 11.84L14.907 14.16Z"/>
-                    </svg>
+                    <i class="fas fa-square-full"></i>
                     <span class="icon-label">Roblox</span>
                 </a>
             </div>
