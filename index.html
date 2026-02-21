@@ -135,9 +135,12 @@
             filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
         }
 
-        .fa-square-full {
-            transform: rotate(-10deg);
-            font-size: 1.4rem;
+        /* ACTUAL ROBLOX LOGO SVG */
+        .roblox-icon {
+            width: 26px;
+            height: 26px;
+            fill: white;
+            transition: 0.3s;
         }
 
         .icon-label {
@@ -157,9 +160,13 @@
             filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
         }
 
+        .socials a:hover .roblox-icon {
+            fill: #ff0000;
+        }
+
         .socials a:hover .icon-label { opacity: 1; top: 45px; }
 
-        /* 5. VIEW COUNTER & EYE FIX */
+        /* 5. VIEW COUNTER & EYE BLINK */
         .view-counter {
             position: absolute;
             bottom: 25%;
@@ -179,7 +186,7 @@
             transition: transform 0.1s ease;
         }
 
-        /* TRUE BLINK: Squashes eye into a flat line on hover */
+        /* The actual blink effect */
         .view-counter:hover i {
             transform: scaleY(0.1);
             color: #fff;
@@ -221,7 +228,9 @@
                     <span class="icon-label">Discord</span>
                 </a>
                 <a href="https://roblox.com/users/YOUR_ID" target="_blank">
-                    <i class="fas fa-square-full"></i>
+                    <svg class="roblox-icon" viewBox="0 0 24 24">
+                        <path d="M5.344 0L0 18.656l18.656 5.344L24 5.344 5.344 0zm11.233 13.922l-4.144 1.189-1.189-4.144 4.144-1.189 1.189 4.144z"/>
+                    </svg>
                     <span class="icon-label">Roblox</span>
                 </a>
             </div>
