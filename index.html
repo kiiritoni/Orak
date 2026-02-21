@@ -8,7 +8,6 @@
     <style>
         * { 
             box-sizing: border-box; 
-            /* PURE WHITE CUSTOM CROSSHAIR */
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2.5" stroke-linecap="square"/></svg>') 12 12, crosshair;
         }
         
@@ -91,14 +90,26 @@
             gap: 25px;
         }
 
+        /* SOUND REACTIVE WRAPPER */
+        .pfp-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: transform 0.1s ease-out;
+            border: 2px solid #fff; /* Static border when music is off */
+        }
+
         .pfp {
             width: 110px;
             height: 110px;
             border-radius: 50%;
-            border: 1px solid #ffffff;
             background: #111;
             object-fit: cover;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+            z-index: 2;
         }
 
         .info h2 {
@@ -106,7 +117,7 @@
             font-size: 1.8rem;
             letter-spacing: 1px;
             color: #ffffff;
-            text-shadow: 0 0 5px #ffffff, 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(255, 0, 0, 0.3);
+            text-shadow: 0 0 5px #ffffff, 0 0 15px rgba(255, 255, 255, 0.6);
         }
 
         .info p {
@@ -137,7 +148,6 @@
             filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
         }
 
-        /* CORRECT ROBLOX LOGO */
         .roblox-wrapper {
             width: 26px;
             height: 26px;
@@ -172,17 +182,14 @@
             filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
         }
 
-        .socials a:hover .roblox-svg {
-            fill: #ff0000;
-        }
-
+        .socials a:hover .roblox-svg { fill: #ff0000; }
         .socials a:hover .icon-label { opacity: 1; top: 45px; }
 
     </style>
 </head>
 <body>
 
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop crossorigin="anonymous">
         <source src="song.mp3" type="audio/mpeg">
     </audio>
 
@@ -195,7 +202,9 @@
     </div>
 
     <div class="bio-box">
-        <img src="pfp.jpg" alt="pfp" class="pfp" onerror="this.src='https://via.placeholder.com/150/000/fff?text=?'">
+        <div class="pfp-container" id="visualizer">
+            <img src="pfp.jpg" alt="pfp" class="pfp" onerror="this.src='https://via.placeholder.com/150/000/fff?text=?'">
+        </div>
         
         <div class="info">
             <h2>Kiritoni</h2>
@@ -223,13 +232,55 @@
     </div>
 
     <script>
+        let audioContext, analyser, dataArray, source;
+
+        function initVisualizer() {
+            const audio = document.getElementById('bg-music');
+            const container = document.getElementById('visualizer');
+            
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            source = audioContext.createMediaElementSource(audio);
+            
+            source.connect(analyser);
+            analyser.connect(audioContext.destination);
+            
+            analyser.fftSize = 64; // Low resolution for simple pulsing
+            const bufferLength = analyser.frequencyBinCount;
+            dataArray = new Uint8Array(bufferLength);
+
+            function draw() {
+                requestAnimationFrame(draw);
+                analyser.getByteFrequencyData(dataArray);
+
+                // Get average volume
+                let sum = 0;
+                for (let i = 0; i < dataArray.length; i++) {
+                    sum += dataArray[i];
+                }
+                let average = sum / dataArray.length;
+
+                // Map volume to scale and glow
+                let scale = 1 + (average / 300); 
+                let glow = average / 4;
+                
+                container.style.transform = `scale(${scale})`;
+                container.style.boxShadow = `0 0 ${glow}px rgba(255, 255, 255, 0.8)`;
+                container.style.borderColor = `rgba(255, 255, 255, ${0.5 + average/255})`;
+            }
+            draw();
+        }
+
         function unlock() {
-            // Start music
             const music = document.getElementById('bg-music');
             music.volume = 0.5;
-            music.play().catch(e => console.log("Audio blocked:", e));
+            music.play();
 
-            // Hide gate
+            // Setup reactive border
+            if (!audioContext) {
+                initVisualizer();
+            }
+
             const gate = document.getElementById('entry-gate');
             gate.style.transform = 'scale(2)';
             gate.style.opacity = '0';
