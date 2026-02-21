@@ -11,10 +11,10 @@
         body, html {
             margin: 0;
             padding: 0;
-            /* FIX: This loads your background image again */
-            background: url('bg.jpg') no-repeat center center fixed;
+            /* SLIGHT DARK TINT: added a linear gradient overlay before the image */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('bg.jpg') no-repeat center center fixed;
             background-size: cover;
-            background-color: #000; /* Backup if image fails */
+            background-color: #000;
             color: #fff;
             font-family: 'Inter', sans-serif;
             height: 100vh;
@@ -25,7 +25,7 @@
             align-items: center;
         }
 
-        /* 1. ENTRY GATE (Enhanced Effects) */
+        /* 1. ENTRY GATE */
         #entry-gate {
             position: fixed;
             top: 0;
@@ -56,7 +56,6 @@
             font-size: 0.8rem;
             letter-spacing: 1px;
             text-shadow: 0 0 10px #ff0000;
-            transition: all 0.3s ease;
             animation: pulse 2s infinite;
         }
 
@@ -83,15 +82,13 @@
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
         }
 
-        /* 3. CENTERED BIO BOX */
+        /* 3. CENTERED BIO (Transparent Background) */
         .bio-box {
             display: flex;
             align-items: center;
             gap: 25px;
-            background: rgba(0, 0, 0, 0.3); /* Slight dark tint behind bio */
+            background: transparent; /* Box removed */
             padding: 20px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
         }
 
         .pfp {
@@ -101,22 +98,28 @@
             border: 1px solid #ff0000;
             background: #111;
             object-fit: cover;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
         }
 
+        /* KIRITONI (Maximum Glow) */
         .info h2 {
             margin: 0;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             letter-spacing: 1px;
             color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            /* Stronger neon glow layers */
+            text-shadow: 
+                0 0 10px #fff,
+                0 0 20px #ff0000,
+                0 0 30px #ff0000;
         }
 
         .info p {
             margin: 5px 0 15px 0;
-            color: #bbb; /* Made text lighter to see against BG */
-            font-size: 0.85rem;
+            color: #ececec; 
+            font-size: 0.9rem;
             max-width: 250px;
+            text-shadow: 0 0 5px rgba(0,0,0,0.8);
         }
 
         /* 4. ICONS */
@@ -127,7 +130,7 @@
 
         .socials a {
             color: #ff0000;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             text-decoration: none;
             transition: 0.3s;
             position: relative;
@@ -137,16 +140,17 @@
 
         .icon-label {
             position: absolute;
-            bottom: 35px; 
-            font-size: 0.65rem;
+            bottom: 38px; 
+            font-size: 0.7rem;
             color: #fff;
             opacity: 0;
             transition: 0.3s;
             text-transform: uppercase;
+            text-shadow: 0 0 8px #000;
         }
 
-        .socials a:hover { color: #fff; transform: scale(1.1); }
-        .socials a:hover .icon-label { opacity: 1; bottom: 40px; }
+        .socials a:hover { color: #fff; transform: scale(1.15); }
+        .socials a:hover .icon-label { opacity: 1; bottom: 42px; }
 
     </style>
 </head>
@@ -165,7 +169,7 @@
         
         <div class="info">
             <h2>Kiritoni</h2>
-            <p>GREEN FN.</p>
+            <p>2026 digital presence. Building things.</p>
             
             <div class="socials">
                 <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank">
@@ -183,7 +187,6 @@
     <script>
         function unlock() {
             const gate = document.getElementById('entry-gate');
-            // Adding a "Zoom and Fade" effect on click
             gate.style.transform = 'scale(2)';
             gate.style.opacity = '0';
             setTimeout(() => {
