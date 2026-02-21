@@ -27,7 +27,7 @@
             align-items: center;
         }
 
-        /* 1. ENTRY GATE */
+        /* ENTRY GATE */
         #entry-gate {
             position: fixed;
             top: 0;
@@ -41,7 +41,7 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.8s ease;
         }
 
         .gate-circle {
@@ -55,8 +55,6 @@
             color: #ff0000;
             text-transform: lowercase;
             font-size: 0.8rem;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px #ff0000;
             animation: pulse 2s infinite;
         }
 
@@ -66,7 +64,7 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* 2. ORAK HEADER */
+        /* ORAK HEADER */
         .header-name {
             position: absolute;
             top: 30px;
@@ -80,10 +78,10 @@
             letter-spacing: 6px;
             margin: 0;
             font-weight: 900;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
         }
 
-        /* 3. CENTERED BIO */
+        /* BIO BOX */
         .bio-box {
             display: flex;
             align-items: center;
@@ -96,26 +94,23 @@
             width: 110px;
             height: 110px;
             border-radius: 50%;
-            background: #111;
-            object-fit: cover;
             border: 2px solid white;
+            object-fit: cover;
         }
 
-        /* FLAT VISUALIZER - HIGHER Z-INDEX AND STRONGER GLOW */
+        /* VISUALIZER */
         .visualizer-wrapper {
-            width: 100%;
+            width: 200px; /* Specific width for stability */
             height: 50px;
             margin-bottom: 5px;
             display: flex;
             align-items: flex-end;
-            position: relative;
-            z-index: 101;
+            filter: drop-shadow(0 0 8px #ff0000); /* THE RED GLOW */
         }
 
-        #visualizer-canvas {
+        canvas {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.9)); /* STRONGER RED GLOW */
         }
 
         .info h2 {
@@ -134,7 +129,7 @@
             letter-spacing: 2px;
         }
 
-        /* 4. SOCIALS */
+        /* SOCIALS */
         .socials {
             display: flex;
             gap: 20px;
@@ -146,36 +141,17 @@
             font-size: 1.8rem;
             text-decoration: none;
             transition: 0.3s;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .roblox-wrapper {
             width: 26px;
             height: 26px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transform: rotate(-10deg); 
-            transition: 0.3s;
         }
 
         .roblox-svg { width: 100%; height: 100%; fill: white; }
-        
-        .icon-label {
-            position: absolute;
-            top: 40px; 
-            font-size: 0.65rem;
-            opacity: 0;
-            transition: 0.3s;
-            text-transform: uppercase;
-        }
 
-        .socials a:hover { color: #ff0000; transform: scale(1.15); }
-        .socials a:hover .roblox-svg { fill: #ff0000; }
-        .socials a:hover .icon-label { opacity: 1; top: 45px; }
+        .socials a:hover { color: #ff0000; transform: scale(1.1); }
 
         /* COPYRIGHT */
         .copyright {
@@ -186,8 +162,6 @@
             color: rgba(255, 255, 255, 0.4);
             text-transform: uppercase;
             letter-spacing: 2px;
-            pointer-events: none;
-            z-index: 200;
         }
 
     </style>
@@ -218,21 +192,12 @@
             <p>GREEN FN</p>
             
             <div class="socials">
-                <a href="https://www.youtube.com/@K1ritoni" target="_blank">
-                    <i class="fab fa-youtube"></i>
-                    <span class="icon-label">YouTube</span>
-                </a>
-                <a href="https://discord.gg/sxygV7MNjG" target="_blank">
-                    <i class="fab fa-discord"></i>
-                    <span class="icon-label">Discord</span>
-                </a>
+                <a href="https://www.youtube.com/@K1ritoni" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://discord.gg/sxygV7MNjG" target="_blank"><i class="fab fa-discord"></i></a>
                 <a href="https://www.roblox.com/users/7035287/profile" target="_blank">
                     <div class="roblox-wrapper">
-                        <svg class="roblox-svg" viewBox="0 0 24 24">
-                            <path d="M0 0h24v24H0V0zm14.5 14.5v-5h-5v5h5z"/>
-                        </svg>
+                        <svg class="roblox-svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm14.5 14.5v-5h-5v5h5z"/></svg>
                     </div>
-                    <span class="icon-label">Roblox</span>
                 </a>
             </div>
         </div>
@@ -243,72 +208,50 @@
     </div>
 
     <script>
-        let audioCtx, analyser, source, dataArray, canvas, ctx;
-
-        function initVisualizer() {
-            canvas = document.getElementById('visualizer-canvas');
-            ctx = canvas.getContext('2d');
-            const music = document.getElementById('bg-music');
-
-            // Force internal canvas resolution to match its displayed size
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            analyser = audioCtx.createAnalyser();
-            
-            source = audioCtx.createMediaElementSource(music);
-            source.connect(analyser);
-            analyser.connect(audioCtx.destination);
-
-            analyser.fftSize = 64; 
-            const bufferLength = analyser.frequencyBinCount;
-            dataArray = new Uint8Array(bufferLength);
-
-            function draw() {
-                requestAnimationFrame(draw);
-                analyser.getByteFrequencyData(dataArray);
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                const barWidth = (canvas.width / bufferLength) * 2.2;
-                let x = 0;
-
-                for (let i = 0; i < bufferLength; i++) {
-                    // Massive boost to height (1.5x) so it's super reactive
-                    let barHeight = (dataArray[i] / 255) * canvas.height * 1.5;
-
-                    ctx.fillStyle = 'white';
-                    // Center-aligning bars slightly
-                    ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
-
-                    x += barWidth;
-                }
-            }
-            draw();
-        }
+        let audioCtx, analyser, dataArray, canvas, ctx;
 
         function unlock() {
             const music = document.getElementById('bg-music');
             music.volume = 0.5;
             
-            // Resume context if browser suspended it
-            if (audioCtx && audioCtx.state === 'suspended') {
-                audioCtx.resume();
+            // Start Audio Context on user click
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioCtx.createAnalyser();
+                const source = audioCtx.createMediaElementSource(music);
+                source.connect(analyser);
+                analyser.connect(audioCtx.destination);
+                
+                analyser.fftSize = 64; 
+                dataArray = new Uint8Array(analyser.frequencyBinCount);
+                
+                canvas = document.getElementById('visualizer-canvas');
+                ctx = canvas.getContext('2d');
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                
+                draw();
             }
 
             music.play();
+            document.getElementById('entry-gate').style.opacity = '0';
+            setTimeout(() => { document.getElementById('entry-gate').style.display = 'none'; }, 800);
+        }
 
-            if (!audioCtx) {
-                initVisualizer();
+        function draw() {
+            requestAnimationFrame(draw);
+            analyser.getByteFrequencyData(dataArray);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const barWidth = (canvas.width / dataArray.length) * 2.5;
+            let x = 0;
+
+            for (let i = 0; i < dataArray.length; i++) {
+                const barHeight = (dataArray[i] / 255) * canvas.height * 1.5;
+                ctx.fillStyle = 'white';
+                ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
+                x += barWidth;
             }
-
-            const gate = document.getElementById('entry-gate');
-            gate.style.transform = 'scale(2)';
-            gate.style.opacity = '0';
-            setTimeout(() => {
-                gate.style.visibility = 'hidden';
-            }, 800);
         }
     </script>
 </body>
