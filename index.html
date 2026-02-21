@@ -17,9 +17,12 @@
             height: 100vh;
             width: 100vw;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* 1. ENTRY GATE (The Blur) */
+        /* 1. ENTRY GATE */
         #entry-gate {
             position: fixed;
             top: 0;
@@ -50,22 +53,20 @@
             font-size: 0.8rem;
             letter-spacing: 1px;
             text-shadow: 0 0 10px #ff0000;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); }
-            50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 0, 0, 0.4); }
-            100% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 0, 0, 0.2); }
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        /* 2. ORAK (Top Right) */
+        /* 2. ORAK (Top Right Only) */
         .header-name {
             position: absolute;
             top: 30px;
             right: 40px;
-            z-index: 10;
         }
 
         .header-name h1 {
@@ -78,18 +79,12 @@
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
         }
 
-        /* 3. BIO SECTION (Middle Left) */
-        .content-wrapper {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            padding-left: 10%;
-        }
-
+        /* 3. CENTERED BIO BOX */
         .bio-box {
             display: flex;
             align-items: center;
             gap: 25px;
+            text-align: left;
         }
 
         .pfp {
@@ -102,12 +97,6 @@
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
         }
 
-        .info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
         .info h2 {
             margin: 0;
             font-size: 1.4rem;
@@ -115,42 +104,43 @@
         }
 
         .info p {
-            margin: 0;
+            margin: 5px 0 15px 0;
             color: #666;
             font-size: 0.85rem;
             max-width: 250px;
         }
 
-        /* 4. ICONS */
+        /* 4. ICONS WITH TOP LABELS */
         .socials {
             display: flex;
             gap: 20px;
-            margin-top: 15px;
         }
 
         .socials a {
             color: #ff0000;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             text-decoration: none;
             transition: 0.3s;
             position: relative;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
         }
 
+        /* Name pops up ABOVE icon */
         .icon-label {
             position: absolute;
-            top: 30px;
-            font-size: 0.6rem;
+            bottom: 35px; /* Moved above the icon */
+            font-size: 0.65rem;
             color: #fff;
             opacity: 0;
             transition: 0.3s;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
         }
 
-        .socials a:hover { color: #fff; transform: translateY(-3px); }
-        .socials a:hover .icon-label { opacity: 1; }
+        .socials a:hover { color: #fff; transform: scale(1.1); }
+        .socials a:hover .icon-label { opacity: 1; bottom: 40px; }
 
     </style>
 </head>
@@ -164,24 +154,22 @@
         <h1>ORAK</h1>
     </div>
 
-    <div class="content-wrapper">
-        <div class="bio-box">
-            <img src="pfp.jpg" alt="pfp" class="pfp" onerror="this.src='https://via.placeholder.com/150/000/f00?text=?'">
+    <div class="bio-box">
+        <img src="pfp.jpg" alt="pfp" class="pfp" onerror="this.src='https://via.placeholder.com/150/000/f00?text=?'">
+        
+        <div class="info">
+            <h2>Orak</h2>
+            <p>2026 digital presence. Building things.</p>
             
-            <div class="info">
-                <h2>Orak</h2>
-                <p>2026 digital presence. Building things.</p>
-                
-                <div class="socials">
-                    <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank">
-                        <i class="fab fa-youtube"></i>
-                        <span class="icon-label">YouTube</span>
-                    </a>
-                    <a href="https://discord.gg/YOUR_INVITE" target="_blank">
-                        <i class="fab fa-discord"></i>
-                        <span class="icon-label">Discord</span>
-                    </a>
-                </div>
+            <div class="socials">
+                <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank">
+                    <span class="icon-label">YouTube</span>
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://discord.gg/YOUR_INVITE" target="_blank">
+                    <span class="icon-label">Discord</span>
+                    <i class="fab fa-discord"></i>
+                </a>
             </div>
         </div>
     </div>
