@@ -87,29 +87,38 @@
         .bio-box {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 40px;
         }
 
-        /* SOUND REACTIVE WRAPPER */
-        .pfp-container {
+        /* SPIKY VISUALIZER WRAPPER */
+        .pfp-wrapper {
             position: relative;
-            width: 120px;
-            height: 120px;
+            width: 160px;
+            height: 160px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 50%;
-            transition: transform 0.1s ease-out;
-            border: 2px solid #fff; /* Static border when music is off */
+        }
+
+        #spike-visualizer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            /* Creates the initial spike shape */
+            clip-path: polygon(50% 0%, 55% 40%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+            transition: transform 0.05s linear;
+            z-index: 1;
         }
 
         .pfp {
             width: 110px;
             height: 110px;
             border-radius: 50%;
-            background: #111;
+            background: #000;
             object-fit: cover;
             z-index: 2;
+            border: 2px solid white;
         }
 
         .info h2 {
@@ -124,7 +133,6 @@
             margin: 5px 0 15px 0;
             color: #ececec; 
             font-size: 0.9rem;
-            max-width: 250px;
             font-weight: 700;
             letter-spacing: 1px;
         }
@@ -176,12 +184,7 @@
             letter-spacing: 1px;
         }
 
-        .socials a:hover { 
-            color: #ff0000; 
-            transform: scale(1.15); 
-            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
-        }
-
+        .socials a:hover { color: #ff0000; transform: scale(1.15); filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5)); }
         .socials a:hover .roblox-svg { fill: #ff0000; }
         .socials a:hover .icon-label { opacity: 1; top: 45px; }
 
@@ -202,7 +205,8 @@
     </div>
 
     <div class="bio-box">
-        <div class="pfp-container" id="visualizer">
+        <div class="pfp-wrapper">
+            <div id="spike-visualizer"></div>
             <img src="pfp.jpg" alt="pfp" class="pfp" onerror="this.src='https://via.placeholder.com/150/000/fff?text=?'">
         </div>
         
@@ -234,9 +238,9 @@
     <script>
         let audioContext, analyser, dataArray, source;
 
-        function initVisualizer() {
+        function initSpikes() {
             const audio = document.getElementById('bg-music');
-            const container = document.getElementById('visualizer');
+            const spikes = document.getElementById('spike-visualizer');
             
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
             analyser = audioContext.createAnalyser();
@@ -245,30 +249,33 @@
             source.connect(analyser);
             analyser.connect(audioContext.destination);
             
-            analyser.fftSize = 64; // Low resolution for simple pulsing
+            analyser.fftSize = 128;
             const bufferLength = analyser.frequencyBinCount;
             dataArray = new Uint8Array(bufferLength);
 
-            function draw() {
-                requestAnimationFrame(draw);
+            function update() {
+                requestAnimationFrame(update);
                 analyser.getByteFrequencyData(dataArray);
 
-                // Get average volume
                 let sum = 0;
                 for (let i = 0; i < dataArray.length; i++) {
                     sum += dataArray[i];
                 }
                 let average = sum / dataArray.length;
 
-                // Map volume to scale and glow
-                let scale = 1 + (average / 300); 
-                let glow = average / 4;
+                // Dynamically change the spike points based on audio
+                let boost = average * 0.8; 
+                let scale = 1 + (average / 150);
                 
-                container.style.transform = `scale(${scale})`;
-                container.style.boxShadow = `0 0 ${glow}px rgba(255, 255, 255, 0.8)`;
-                container.style.borderColor = `rgba(255, 255, 255, ${0.5 + average/255})`;
+                spikes.style.transform = `scale(${scale}) rotate(${average/2}deg)`;
+                spikes.style.opacity = 0.5 + (average / 255);
+                
+                // Redraw spiky polygon points based on intensity
+                let p1 = 50 - (boost/4);
+                let p2 = 50 + (boost/4);
+                spikes.style.clipPath = `polygon(50% 0%, ${50+boost/10}% 40%, 100% 50%, ${50+boost/10}% 60%, 50% 100%, ${50-boost/10}% 60%, 0% 50%, ${50-boost/10}% 40%)`;
             }
-            draw();
+            update();
         }
 
         function unlock() {
@@ -276,9 +283,8 @@
             music.volume = 0.5;
             music.play();
 
-            // Setup reactive border
             if (!audioContext) {
-                initVisualizer();
+                initSpikes();
             }
 
             const gate = document.getElementById('entry-gate');
