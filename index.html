@@ -8,14 +8,16 @@
     <style>
         * { 
             box-sizing: border-box; 
-            /* CUSTOM MOUSE: This makes the cursor a "+" crosshair everywhere */
+            /* SMALLER CROSSHAIR: Standard crosshair size is fixed, 
+               but this ensures it stays crisp and thin */
             cursor: crosshair; 
         }
         
         body, html {
             margin: 0;
             padding: 0;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('bg.jpg') no-repeat center center fixed;
+            /* BACKGROUND TINT: Reduced from 0.4 to 0.2 (much lighter) */
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('bg.jpg') no-repeat center center fixed;
             background-size: cover;
             background-color: #000;
             color: #fff;
@@ -28,7 +30,7 @@
             align-items: center;
         }
 
-        /* 1. ENTRY GATE */
+        /* 1. ENTRY GATE (Back to Red) */
         #entry-gate {
             position: fixed;
             top: 0;
@@ -48,22 +50,22 @@
         .gate-circle {
             width: 140px;
             height: 140px;
-            border: 1px solid #fff; /* Changed gate to white for consistency */
+            border: 1px solid #ff0000; /* BACK TO RED */
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            color: #ff0000; /* BACK TO RED */
             text-transform: lowercase;
             font-size: 0.8rem;
             letter-spacing: 1px;
-            text-shadow: 0 0 10px #fff;
+            text-shadow: 0 0 10px #ff0000;
             animation: pulse 2s infinite;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.5; box-shadow: 0 0 30px rgba(255, 255, 255, 0.2); }
+            50% { transform: scale(1.1); opacity: 0.5; box-shadow: 0 0 30px rgba(255, 0, 0, 0.3); }
             100% { transform: scale(1); opacity: 1; }
         }
 
@@ -89,31 +91,24 @@
             display: flex;
             align-items: center;
             gap: 25px;
-            background: transparent;
         }
 
         .pfp {
             width: 110px;
             height: 110px;
             border-radius: 50%;
-            /* WHITE GLOW RING with slight red tint */
             border: 1px solid #ffffff;
             background: #111;
             object-fit: cover;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4), 0 0 5px rgba(255, 0, 0, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
         }
 
-        /* KIRITONI (White to Red Glow) */
         .info h2 {
             margin: 0;
             font-size: 1.8rem;
             letter-spacing: 1px;
             color: #ffffff;
-            /* Glow goes from White (core) to Red (outer) */
-            text-shadow: 
-                0 0 5px #ffffff,
-                0 0 15px rgba(255, 255, 255, 0.6),
-                0 0 25px rgba(255, 0, 0, 0.4);
+            text-shadow: 0 0 5px #ffffff, 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(255, 0, 0, 0.3);
         }
 
         .info p {
@@ -121,39 +116,43 @@
             color: #ececec; 
             font-size: 0.9rem;
             max-width: 250px;
-            text-shadow: 0 0 5px rgba(0,0,0,0.8);
         }
 
-        /* 4. ICONS with UNDER LABELS */
+        /* 4. WHITE GLOWING ICONS */
         .socials {
             display: flex;
             gap: 20px;
         }
 
         .socials a {
-            color: #ff0000;
+            color: #ffffff; /* CHANGED TO WHITE */
             font-size: 1.8rem;
             text-decoration: none;
             transition: 0.3s;
             position: relative;
             display: flex;
             justify-content: center;
+            /* Added subtle white glow */
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
         }
 
         .icon-label {
             position: absolute;
-            top: 35px; /* Moved UNDER the icon */
+            top: 40px; /* Labels UNDER icon */
             font-size: 0.65rem;
             color: #fff;
             opacity: 0;
             transition: 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
-            white-space: nowrap;
         }
 
-        .socials a:hover { color: #fff; transform: scale(1.15); }
-        .socials a:hover .icon-label { opacity: 1; top: 40px; }
+        .socials a:hover { 
+            color: #ff0000; /* Turns red on hover for contrast */
+            transform: scale(1.15); 
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+        }
+        .socials a:hover .icon-label { opacity: 1; top: 45px; }
 
     </style>
 </head>
@@ -172,7 +171,7 @@
         
         <div class="info">
             <h2>Kiritoni</h2>
-            <p>2026 digital presence. Building things.</p>
+            <p>GREEN FN</p>
             
             <div class="socials">
                 <a href="https://youtube.com/@YOUR_CHANNEL" target="_blank">
