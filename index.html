@@ -90,27 +90,36 @@
             z-index: 100;
         }
 
+        /* PFP WITH WHITE GLOW */
         .pfp {
             width: 110px;
             height: 110px;
             border-radius: 50%;
             border: 2px solid white;
             object-fit: cover;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* THE WHITE GLOW */
         }
 
-        /* VISUALIZER */
+        /* VISUALIZER - CENTERED */
         .visualizer-wrapper {
-            width: 200px; /* Specific width for stability */
-            height: 50px;
-            margin-bottom: 5px;
+            width: 100%;
+            height: 45px;
+            margin-bottom: 8px;
             display: flex;
+            justify-content: center; /* Center bars horizontally */
             align-items: flex-end;
-            filter: drop-shadow(0 0 8px #ff0000); /* THE RED GLOW */
+            filter: drop-shadow(0 0 6px #ff0000); /* THE RED GLOW */
         }
 
         canvas {
             width: 100%;
             height: 100%;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center name and links under visualizer */
         }
 
         .info h2 {
@@ -147,6 +156,8 @@
             width: 26px;
             height: 26px;
             transform: rotate(-10deg); 
+            display: flex;
+            align-items: center;
         }
 
         .roblox-svg { width: 100%; height: 100%; fill: white; }
@@ -214,7 +225,6 @@
             const music = document.getElementById('bg-music');
             music.volume = 0.5;
             
-            // Start Audio Context on user click
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 analyser = audioCtx.createAnalyser();
@@ -243,13 +253,16 @@
             analyser.getByteFrequencyData(dataArray);
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            const barWidth = (canvas.width / dataArray.length) * 2.5;
+            const barWidth = (canvas.width / dataArray.length) * 2;
             let x = 0;
 
             for (let i = 0; i < dataArray.length; i++) {
-                const barHeight = (dataArray[i] / 255) * canvas.height * 1.5;
+                // Slower/Lower sensitivity (0.8x instead of 1.5x)
+                const barHeight = (dataArray[i] / 255) * canvas.height * 0.8;
                 ctx.fillStyle = 'white';
-                ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
+                
+                // Draw bars
+                ctx.fillRect(x, canvas.height - barHeight, barWidth - 3, barHeight);
                 x += barWidth;
             }
         }
