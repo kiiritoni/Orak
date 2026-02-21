@@ -26,16 +26,16 @@
             text-align: center;
         }
 
-        /* The big "Orak" Neon Text */
         h1 {
             font-size: 5rem;
-            color: #ff0000; /* Red */
+            color: #ff0000; 
             text-transform: uppercase;
-            letter-spacing: 15px;
+            letter-spacing: 10px; /* Tightened slightly for better focus */
             margin: 0;
             font-weight: 900;
-            /* This creates the neon glow effect */
-            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+            /* Reduced the layers of shadow to make it crisp */
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.8);
+            filter: contrast(150%); /* This helps sharpen the red against the black */
         }
 
         /* The area holding the icons */
@@ -81,3 +81,4 @@
 
 </body>
 </html>
+
