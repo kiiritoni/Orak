@@ -9,7 +9,7 @@
         * { 
             box-sizing: border-box; 
             /* PURE WHITE CUSTOM CROSSHAIR */
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2"/></svg>') 12 12, crosshair;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2" stroke-linecap="square"/></svg>') 12 12, crosshair;
         }
         
         body, html {
@@ -135,7 +135,6 @@
             filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
         }
 
-        /* Official Roblox Icon Styling */
         .fa-square-full {
             transform: rotate(-10deg);
             font-size: 1.4rem;
@@ -177,13 +176,13 @@
             display: inline-block;
             width: 20px;
             text-align: center;
+            transition: transform 0.1s ease;
         }
 
-        /* EYE STAYS CLOSED ON HOVER */
-        .view-counter:hover i::before {
-            content: "\f070" !important;
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
+        /* TRUE BLINK: Squashes eye into a flat line on hover */
+        .view-counter:hover i {
+            transform: scaleY(0.1);
+            color: #fff;
         }
 
         #busuanzi_value_site_pv {
