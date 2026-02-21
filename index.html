@@ -8,7 +8,6 @@
     <style>
         * { 
             box-sizing: border-box; 
-            /* PURE WHITE CUSTOM CROSSHAIR */
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2.5" stroke-linecap="square"/></svg>') 12 12, crosshair;
         }
         
@@ -103,8 +102,8 @@
         /* FLAT VISUALIZER */
         .visualizer-wrapper {
             width: 100%;
-            height: 30px;
-            margin-bottom: 5px;
+            height: 40px;
+            margin-bottom: 2px;
             display: flex;
             align-items: flex-end;
         }
@@ -112,6 +111,7 @@
         #visualizer-canvas {
             width: 100%;
             height: 100%;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
         }
 
         .info h2 {
@@ -173,6 +173,18 @@
         .socials a:hover .roblox-svg { fill: #ff0000; }
         .socials a:hover .icon-label { opacity: 1; top: 45px; }
 
+        /* COPYRIGHT BOTTOM LEFT */
+        .copyright {
+            position: absolute;
+            bottom: 10px;
+            left: 15px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            pointer-events: none;
+        }
+
     </style>
 </head>
 <body>
@@ -221,6 +233,10 @@
         </div>
     </div>
 
+    <div class="copyright">
+        &copy; 2026 ORAK. All Rights Reserved.
+    </div>
+
     <script>
         let audioCtx, analyser, source, dataArray, canvas, ctx;
 
@@ -235,7 +251,8 @@
             source.connect(analyser);
             analyser.connect(audioCtx.destination);
 
-            analyser.fftSize = 64; 
+            // Increased fftSize for more bars/movement
+            analyser.fftSize = 128; 
             const bufferLength = analyser.frequencyBinCount;
             dataArray = new Uint8Array(bufferLength);
 
@@ -245,16 +262,16 @@
 
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                const barWidth = (canvas.width / bufferLength) * 2.5;
-                let barHeight;
+                // Adjusted width to fit more bars
+                const barWidth = (canvas.width / bufferLength) * 2;
                 let x = 0;
 
                 for (let i = 0; i < bufferLength; i++) {
-                    barHeight = (dataArray[i] / 255) * canvas.height;
+                    // Increased multiplier (1.2) so they move higher/more
+                    let barHeight = (dataArray[i] / 255) * canvas.height * 1.2;
 
                     ctx.fillStyle = 'white';
-                    // Draws bars from the bottom up
-                    ctx.fillRect(x, canvas.height - barHeight, barWidth - 2, barHeight);
+                    ctx.fillRect(x, canvas.height - barHeight, barWidth - 1, barHeight);
 
                     x += barWidth;
                 }
