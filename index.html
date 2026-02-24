@@ -64,13 +64,25 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* ORAK HEADER */
+        /* TOP NAVIGATION ELEMENTS */
+        .search-trigger {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 1.5rem;
+            color: #fff;
+            opacity: 0.5;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 500;
+        }
+        .search-trigger:hover { opacity: 1; color: #ff0000; }
+
         .header-name {
             position: absolute;
             top: 30px;
             right: 40px;
         }
-
         .header-name h1 {
             font-size: 1.8rem;
             color: #ff0000;
@@ -79,6 +91,40 @@
             margin: 0;
             font-weight: 900;
             text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+        }
+
+        /* SECRET SEARCH BAR OVERLAY */
+        #search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(139, 0, 0, 0.15); /* Translucent Red Tint */
+            backdrop-filter: blur(10px);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .search-container {
+            width: 300px;
+            text-align: center;
+        }
+
+        .search-container input {
+            width: 100%;
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0000;
+            padding: 10px 15px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
         }
 
         /* BIO BOX */
@@ -110,16 +156,9 @@
             filter: drop-shadow(0 0 6px #ff0000);
         }
 
-        canvas {
-            width: 100%;
-            height: 100%;
-        }
+        canvas { width: 100%; height: 100%; }
 
-        .info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .info { display: flex; flex-direction: column; align-items: center; }
 
         .info h2 {
             margin: 0;
@@ -137,12 +176,8 @@
             letter-spacing: 2px;
         }
 
-        /* SOCIALS & HOVER FIXES */
-        .socials {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
+        /* SOCIALS */
+        .socials { display: flex; gap: 25px; align-items: center; }
 
         .socials a {
             color: #ffffff;
@@ -161,20 +196,13 @@
             transform: rotate(-10deg); 
             display: flex;
             align-items: center;
-            transition: transform 0.3s ease;
         }
 
-        /* Target the SVG path specifically for Roblox color change */
-        .roblox-svg { 
-            width: 100%; 
-            height: 100%; 
-            fill: #ffffff; 
-            transition: fill 0.3s ease;
-        }
+        .roblox-svg { width: 100%; height: 100%; fill: #ffffff; transition: fill 0.3s ease; }
 
         .icon-label {
             position: absolute;
-            bottom: -25px; /* Positioned below the icon */
+            bottom: -25px;
             font-size: 0.65rem;
             color: #ff0000;
             opacity: 0;
@@ -185,20 +213,9 @@
             pointer-events: none;
         }
 
-        /* Universal Hover Effects */
-        .socials a:hover { 
-            color: #ff0000; 
-            transform: scale(1.1); 
-        }
-
-        .socials a:hover .roblox-svg { 
-            fill: #ff0000; 
-        }
-
-        .socials a:hover .icon-label { 
-            opacity: 1; 
-            bottom: -20px; 
-        }
+        .socials a:hover { color: #ff0000; transform: scale(1.1); }
+        .socials a:hover .roblox-svg { fill: #ff0000; }
+        .socials a:hover .icon-label { opacity: 1; bottom: -20px; }
 
         /* COPYRIGHT */
         .copyright {
@@ -221,6 +238,16 @@
 
     <div id="entry-gate" onclick="unlock()">
         <div class="gate-circle">click ts rn</div>
+    </div>
+
+    <div class="search-trigger" onclick="toggleSearch()">
+        <i class="fas fa-search"></i>
+    </div>
+
+    <div id="search-overlay" onclick="closeSearch(event)">
+        <div class="search-container">
+            <input type="text" id="easter-egg-input" placeholder="SEARCH..." autocomplete="off">
+        </div>
     </div>
 
     <div class="header-name">
@@ -264,6 +291,35 @@
     <script>
         let audioCtx, analyser, dataArray, canvas, ctx;
 
+        // --- SEARCH FUNCTIONS ---
+        function toggleSearch() {
+            const overlay = document.getElementById('search-overlay');
+            overlay.style.display = 'flex';
+            document.getElementById('easter-egg-input').focus();
+        }
+
+        function closeSearch(e) {
+            // Closes if clicking background, not the input
+            if (e.target.id === 'search-overlay') {
+                document.getElementById('search-overlay').style.display = 'none';
+            }
+        }
+
+        document.getElementById('easter-egg-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                const val = this.value.trim().toUpperCase();
+                if (val === 'RHC') {
+                    window.location.href = 'https://www.google.com'; // REPLACE WITH YOUR TARGET URL
+                } else {
+                    // Feedback for wrong code
+                    this.value = '';
+                    this.placeholder = 'INVALID';
+                    setTimeout(() => { this.placeholder = 'SEARCH...'; }, 1000);
+                }
+            }
+        });
+
+        // --- AUDIO FUNCTIONS ---
         function unlock() {
             const music = document.getElementById('bg-music');
             music.volume = 0.5;
