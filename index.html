@@ -13,37 +13,23 @@
         }
         
         body, html {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('bg.jpg') no-repeat center center fixed;
-            background-size: cover;
-            background-color: #000;
-            color: #fff;
-            font-family: 'Inter', sans-serif;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-size: cover; background-color: #000;
+            color: #fff; font-family: 'Inter', sans-serif;
+            height: 100vh; width: 100vw; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
         }
 
         #entry-gate {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.98);
-            backdrop-filter: blur(40px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.8s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(40px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.8s ease;
         }
 
         .gate-circle {
-            width: 140px; height: 140px;
-            border: 1px solid #ff0000;
-            border-radius: 50%;
+            width: 140px; height: 140px; border: 1px solid #ff0000; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             color: #ff0000; text-transform: lowercase; font-size: 0.8rem;
             animation: pulse 2s infinite;
@@ -72,7 +58,7 @@
         .socials { display: flex; gap: 25px; align-items: center; }
         .socials a { color: #ffffff; font-size: 1.8rem; transition: 0.3s; position: relative; display: flex; flex-direction: column; align-items: center; }
         .roblox-wrapper { width: 26px; height: 26px; transform: rotate(-10deg); display: flex; align-items: center; }
-        .roblox-svg { width: 100%; height: 100%; fill: #ffffff; transition: fill 0.3s ease; }
+        .roblox-svg { width: 100%; height: 100%; fill: #ffffff; }
         .icon-label { position: absolute; bottom: -25px; font-size: 0.65rem; color: #ff0000; opacity: 0; transition: 0.3s; text-transform: uppercase; pointer-events: none; }
         .socials a:hover { color: #ff0000; transform: scale(1.1); }
         .socials a:hover .roblox-svg { fill: #ff0000; }
@@ -82,10 +68,8 @@
 
         /* --- SECRET ELEMENTS --- */
         #search-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(139, 0, 0, 0.2);
-            backdrop-filter: blur(15px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(139, 0, 0, 0.2); backdrop-filter: blur(15px);
             display: none; justify-content: center; align-items: center; z-index: 2000;
         }
 
@@ -95,26 +79,30 @@
         }
 
         #secret-terminal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; display: none; padding: 20px; font-family: 'Courier New', monospace;
         }
 
         .terminal-line { color: #ff0000; font-size: 1rem; margin: 0; line-height: 1.4; text-shadow: 0 0 3px #ff0000; }
 
         #hidden-website {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10001; display: none;
-            flex-direction: column; padding: 40px;
+            flex-direction: column; align-items: center; justify-content: center;
         }
 
         .secret-header {
-            position: absolute;
-            top: 40px; left: 40px;
+            position: absolute; top: 40px; left: 40px;
             color: #ff0000; font-size: 2rem; font-weight: 900;
             letter-spacing: 5px; text-transform: uppercase;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .welcome-msg {
+            color: #fff; font-size: 3.5rem; letter-spacing: 12px;
+            text-transform: uppercase; font-weight: 900;
+            margin-top: -15vh; /* Shifts text slightly above the direct middle */
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
         }
 
     </style>
@@ -144,11 +132,7 @@
     <div id="hidden-website">
         <div class="secret-header">Red Hooded Crusaders</div>
         
-        <div style="margin-top: 100px; border-left: 2px solid #ff0000; padding-left: 20px; color:#fff;">
-            <p style="letter-spacing: 2px; color: #ff0000;">[DATABASE_CONNECTED]</p>
-            <p>Welcome, Crusader. This area is restricted.</p>
-            <p style="margin-top: 20px;">HIDDEN INTEL: ██████████████████</p>
-        </div>
+        <h1 class="welcome-msg">Welcome Crusader</h1>
 
         <button onclick="location.reload()" style="position: absolute; bottom: 40px; right: 40px; background: none; border: 1px solid #ff0000; color: #ff0000; padding: 10px 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;">Disconnect</button>
     </div>
@@ -197,7 +181,6 @@
         document.getElementById('easter-egg-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 if (this.value.trim().toUpperCase() === 'RHC') {
-                    // STOP THE MUSIC
                     document.getElementById('bg-music').pause();
                     document.getElementById('search-overlay').style.display = 'none';
                     startTerminal();
