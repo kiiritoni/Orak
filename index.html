@@ -6,7 +6,7 @@
     <title>Orak</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- ORIGINAL SITE STYLING (UNCHANGED) --- */
+        /* --- MAIN SITE STYLING --- */
         * { 
             box-sizing: border-box; 
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2.5" stroke-linecap="square"/></svg>') 12 12, crosshair;
@@ -30,13 +30,9 @@
 
         #entry-gate {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.98);
             backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -45,16 +41,11 @@
         }
 
         .gate-circle {
-            width: 140px;
-            height: 140px;
+            width: 140px; height: 140px;
             border: 1px solid #ff0000;
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ff0000;
-            text-transform: lowercase;
-            font-size: 0.8rem;
+            display: flex; justify-content: center; align-items: center;
+            color: #ff0000; text-transform: lowercase; font-size: 0.8rem;
             animation: pulse 2s infinite;
         }
 
@@ -64,93 +55,22 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        .search-trigger {
-            position: absolute;
-            top: 30px;
-            left: 40px;
-            font-size: 1.5rem;
-            color: #fff;
-            opacity: 0.5;
-            transition: 0.3s;
-            cursor: pointer;
-            z-index: 500;
-        }
+        .search-trigger { position: absolute; top: 30px; left: 40px; font-size: 1.5rem; color: #fff; opacity: 0.5; transition: 0.3s; z-index: 500; }
+        .header-name { position: absolute; top: 30px; right: 40px; }
+        .header-name h1 { font-size: 1.8rem; color: #ff0000; text-transform: uppercase; letter-spacing: 6px; margin: 0; font-weight: 900; text-shadow: 0 0 15px rgba(255, 0, 0, 0.8); }
 
-        .header-name {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-        }
+        .bio-box { display: flex; align-items: center; gap: 30px; position: relative; z-index: 100; }
+        .pfp { width: 110px; height: 110px; border-radius: 50%; border: 2px solid white; object-fit: cover; box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
 
-        .header-name h1 {
-            font-size: 1.8rem;
-            color: #ff0000;
-            text-transform: uppercase;
-            letter-spacing: 6px;
-            margin: 0;
-            font-weight: 900;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
-        }
-
-        .bio-box {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            position: relative;
-            z-index: 100;
-        }
-
-        .pfp {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            border: 2px solid white;
-            object-fit: cover;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-        }
-
-        .visualizer-wrapper {
-            width: 100%;
-            height: 45px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            filter: drop-shadow(0 0 6px #ff0000);
-        }
-
+        .visualizer-wrapper { width: 100%; height: 45px; margin-bottom: 8px; display: flex; justify-content: center; align-items: flex-end; filter: drop-shadow(0 0 6px #ff0000); }
         canvas { width: 100%; height: 100%; }
 
         .info { display: flex; flex-direction: column; align-items: center; }
-
-        .info h2 {
-            margin: 0;
-            font-size: 2.2rem;
-            letter-spacing: 1px;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .info p {
-            margin: 5px 0 20px 0;
-            color: #ececec; 
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
+        .info h2 { margin: 0; font-size: 2.2rem; letter-spacing: 1px; color: #ffffff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+        .info p { margin: 5px 0 20px 0; color: #ececec; font-size: 0.95rem; font-weight: 700; letter-spacing: 2px; }
 
         .socials { display: flex; gap: 25px; align-items: center; }
-
-        .socials a {
-            color: #ffffff;
-            font-size: 1.8rem;
-            transition: all 0.3s ease;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
+        .socials a { color: #ffffff; font-size: 1.8rem; transition: 0.3s; position: relative; display: flex; flex-direction: column; align-items: center; }
         .roblox-wrapper { width: 26px; height: 26px; transform: rotate(-10deg); display: flex; align-items: center; }
         .roblox-svg { width: 100%; height: 100%; fill: #ffffff; transition: fill 0.3s ease; }
         .icon-label { position: absolute; bottom: -25px; font-size: 0.65rem; color: #ff0000; opacity: 0; transition: 0.3s; text-transform: uppercase; pointer-events: none; }
@@ -158,49 +78,26 @@
         .socials a:hover .roblox-svg { fill: #ff0000; }
         .socials a:hover .icon-label { opacity: 1; bottom: -20px; }
 
-        .copyright {
-            position: absolute;
-            bottom: 15px;
-            left: 20px;
-            font-size: 0.65rem;
-            color: rgba(255, 255, 255, 0.4);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        .copyright { position: absolute; bottom: 15px; left: 20px; font-size: 0.65rem; color: rgba(255, 255, 255, 0.4); text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- SECRET ELEMENTS (HIDDEN UNTIL RHC IS ENTERED) --- */
+        /* --- SECRET ELEMENTS --- */
         #search-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(139, 0, 0, 0.2);
             backdrop-filter: blur(15px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
+            display: none; justify-content: center; align-items: center; z-index: 2000;
         }
 
         #easter-egg-input {
-            width: 300px;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid #ff0000;
-            color: #fff;
-            font-size: 1.2rem;
-            text-align: center;
-            outline: none;
-            text-transform: uppercase;
-            letter-spacing: 4px;
+            width: 300px; background: transparent; border: none; border-bottom: 2px solid #ff0000;
+            color: #fff; font-size: 1.2rem; text-align: center; outline: none; text-transform: uppercase; letter-spacing: 4px;
         }
 
         #secret-terminal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
-            z-index: 10000;
-            display: none;
-            padding: 20px;
-            font-family: 'Courier New', monospace;
+            background: #000; z-index: 10000; display: none; padding: 20px; font-family: 'Courier New', monospace;
         }
 
         .terminal-line { color: #ff0000; font-size: 1rem; margin: 0; line-height: 1.4; text-shadow: 0 0 3px #ff0000; }
@@ -208,12 +105,16 @@
         #hidden-website {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
-            z-index: 10001;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            background: #000; z-index: 10001; display: none;
+            flex-direction: column; padding: 40px;
+        }
+
+        .secret-header {
+            position: absolute;
+            top: 40px; left: 40px;
+            color: #ff0000; font-size: 2rem; font-weight: 900;
+            letter-spacing: 5px; text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
 
     </style>
@@ -241,12 +142,15 @@
     <div id="secret-terminal"></div>
 
     <div id="hidden-website">
-        <h1 style="color: #ff0000; font-size: 3rem; letter-spacing: 15px;">VOID AREA</h1>
-        <p style="color: #fff; letter-spacing: 5px;">ACCESS GRANTED</p>
-        <div style="margin-top: 30px; border: 1px solid #ff0000; padding: 20px; color:#fff;">
-            <p>HIDDEN DATA GOES HERE</p>
+        <div class="secret-header">Red Hooded Crusaders</div>
+        
+        <div style="margin-top: 100px; border-left: 2px solid #ff0000; padding-left: 20px; color:#fff;">
+            <p style="letter-spacing: 2px; color: #ff0000;">[DATABASE_CONNECTED]</p>
+            <p>Welcome, Crusader. This area is restricted.</p>
+            <p style="margin-top: 20px;">HIDDEN INTEL: ██████████████████</p>
         </div>
-        <button onclick="location.reload()" style="margin-top: 50px; background: none; border: 1px solid #fff; color: #fff; padding: 10px 20px; cursor: pointer;">EXIT</button>
+
+        <button onclick="location.reload()" style="position: absolute; bottom: 40px; right: 40px; background: none; border: 1px solid #ff0000; color: #ff0000; padding: 10px 20px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;">Disconnect</button>
     </div>
 
     <div class="header-name">
@@ -255,15 +159,12 @@
 
     <div class="bio-box">
         <img src="pfp.jpg" alt="pfp" class="pfp" onerror="this.src='https://via.placeholder.com/150/000/fff?text=?'">
-        
         <div class="info">
             <div class="visualizer-wrapper">
                 <canvas id="visualizer-canvas"></canvas>
             </div>
-            
             <h2>Kiritoni</h2>
             <p>GREEN FN</p>
-            
             <div class="socials">
                 <a href="#"><i class="fab fa-youtube"></i><span class="icon-label">YouTube</span></a>
                 <a href="#"><i class="fab fa-discord"></i><span class="icon-label">Discord</span></a>
@@ -282,7 +183,6 @@
     <script>
         let audioCtx, analyser, dataArray, canvas, ctx, userIP = "UNAVAILABLE";
 
-        // Pre-fetch IP
         fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => userIP = data.ip).catch(e => userIP = "127.0.0.1");
 
         function toggleSearch() {
@@ -297,6 +197,8 @@
         document.getElementById('easter-egg-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 if (this.value.trim().toUpperCase() === 'RHC') {
+                    // STOP THE MUSIC
+                    document.getElementById('bg-music').pause();
                     document.getElementById('search-overlay').style.display = 'none';
                     startTerminal();
                 } else {
@@ -312,11 +214,11 @@
             terminal.style.display = 'block';
             
             const lines = [
-                "> BOOTING...",
-                "> TARGET: " + userIP,
-                "> STATUS: BREACHING...",
+                "> BOOTING RHC_ENCRYPT...",
+                "> TARGETING: " + userIP,
+                "> KILLING AUDIO_STREAMS...",
                 "> ACCESS GRANTED.",
-                "> REDIRECTING..."
+                "> LOADING CRUSADER_CORE..."
             ];
 
             let lineIdx = 0;
@@ -332,14 +234,14 @@
                         if (charIdx === lines[lineIdx].length) {
                             clearInterval(interval);
                             lineIdx++;
-                            setTimeout(addLine, 80);
+                            setTimeout(addLine, 60);
                         }
                     }, 15);
                 } else {
                     setTimeout(() => {
                         terminal.style.display = 'none';
                         document.getElementById('hidden-website').style.display = 'flex';
-                    }, 800);
+                    }, 600);
                 }
             }
             addLine();
