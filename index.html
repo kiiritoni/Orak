@@ -64,8 +64,6 @@
         .socials a:hover .roblox-svg { fill: #ff0000; }
         .socials a:hover .icon-label { opacity: 1; bottom: -20px; }
 
-        .copyright { position: absolute; bottom: 15px; left: 20px; font-size: 0.65rem; color: rgba(255, 255, 255, 0.4); text-transform: uppercase; letter-spacing: 2px; }
-
         /* --- SECRET ELEMENTS --- */
         #search-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -88,7 +86,8 @@
         #hidden-website {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10001; display: none;
-            flex-direction: column; align-items: center; justify-content: center;
+            flex-direction: column; align-items: center; justify-content: flex-start;
+            padding-top: 15vh; /* Shifts everything up from the center */
         }
 
         .secret-header {
@@ -101,9 +100,38 @@
         .welcome-msg {
             color: #8B0000; font-size: 1.8rem; letter-spacing: 8px;
             text-transform: uppercase; font-weight: 900;
-            margin-top: -10vh;
+            margin-bottom: 40px;
             text-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
         }
+
+        .telegram-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .telegram-column:hover {
+            transform: scale(1.05);
+        }
+
+        .telegram-column i {
+            font-size: 3rem;
+            color: #8B0000;
+            filter: drop-shadow(0 0 10px rgba(139, 0, 0, 0.5));
+        }
+
+        .telegram-column span {
+            color: #8B0000;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .copyright { position: absolute; bottom: 15px; left: 20px; font-size: 0.65rem; color: rgba(255, 255, 255, 0.4); text-transform: uppercase; letter-spacing: 2px; }
 
     </style>
 </head>
@@ -133,6 +161,11 @@
         <div class="secret-header">Red Hooded Crusaders</div>
         
         <h1 class="welcome-msg">Welcome Crusader</h1>
+
+        <a href="https://t.me/YOUR_TELEGRAM_LINK" target="_blank" class="telegram-column">
+            <i class="fab fa-telegram-plane"></i>
+            <span>Telegram</span>
+        </a>
 
         <button onclick="location.reload()" style="position: absolute; bottom: 40px; right: 40px; background: none; border: 1px solid #8B0000; color: #8B0000; padding: 8px 16px; font-size: 0.7rem; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s;">Disconnect</button>
     </div>
@@ -195,15 +228,7 @@
         function startTerminal() {
             const terminal = document.getElementById('secret-terminal');
             terminal.style.display = 'block';
-            
-            const lines = [
-                "> BOOTING RHC_ENCRYPT...",
-                "> TARGETING: " + userIP,
-                "> KILLING AUDIO_STREAMS...",
-                "> ACCESS GRANTED.",
-                "> LOADING CRUSADER_CORE..."
-            ];
-
+            const lines = ["> BOOTING RHC_ENCRYPT...", "> TARGETING: " + userIP, "> KILLING AUDIO_STREAMS...", "> ACCESS GRANTED.", "> LOADING CRUSADER_CORE..."];
             let lineIdx = 0;
             function addLine() {
                 if (lineIdx < lines.length) {
