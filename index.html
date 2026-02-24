@@ -6,35 +6,193 @@
     <title>Orak</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* (Keeping your original styling for the main site) */
-        * { box-sizing: border-box; cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2.5" stroke-linecap="square"/></svg>') 12 12, crosshair; }
-        body, html { margin: 0; padding: 0; background-color: #000; color: #fff; font-family: 'Inter', sans-serif; height: 100vh; width: 100vw; overflow: hidden; display: flex; justify-content: center; align-items: center; }
-        #entry-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.98); backdrop-filter: blur(40px); display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.8s ease; }
-        .gate-circle { width: 140px; height: 140px; border: 1px solid #ff0000; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #ff0000; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
+        /* --- ORIGINAL SITE STYLING (UNCHANGED) --- */
+        * { 
+            box-sizing: border-box; 
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2.5" stroke-linecap="square"/></svg>') 12 12, crosshair;
+        }
         
-        /* SEARCH & HEADER */
-        .search-trigger { position: absolute; top: 30px; left: 40px; font-size: 1.5rem; color: #fff; opacity: 0.5; transition: 0.3s; z-index: 500; }
-        .search-trigger:hover { opacity: 1; color: #ff0000; }
-        .header-name { position: absolute; top: 30px; right: 40px; }
-        .header-name h1 { font-size: 1.8rem; color: #ff0000; text-transform: uppercase; letter-spacing: 6px; font-weight: 900; text-shadow: 0 0 15px rgba(255, 0, 0, 0.8); }
-        #search-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(139, 0, 0, 0.2); backdrop-filter: blur(15px); display: none; justify-content: center; align-items: center; z-index: 2000; }
-        .search-container input { width: 300px; background: transparent; border: none; border-bottom: 2px solid #ff0000; padding: 10px; color: #fff; font-size: 1.2rem; text-align: center; outline: none; text-transform: uppercase; letter-spacing: 4px; }
+        body, html {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-        /* BIO BOX */
-        .bio-box { display: flex; align-items: center; gap: 30px; transition: opacity 0.5s ease; }
-        .pfp { width: 110px; height: 110px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
-        .visualizer-wrapper { width: 100%; height: 45px; margin-bottom: 8px; display: flex; justify-content: center; align-items: flex-end; filter: drop-shadow(0 0 6px #ff0000); }
+        #entry-gate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
+        .gate-circle {
+            width: 140px;
+            height: 140px;
+            border: 1px solid #ff0000;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ff0000;
+            text-transform: lowercase;
+            font-size: 0.8rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .search-trigger {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            font-size: 1.5rem;
+            color: #fff;
+            opacity: 0.5;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 500;
+        }
+
+        .header-name {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+        }
+
+        .header-name h1 {
+            font-size: 1.8rem;
+            color: #ff0000;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin: 0;
+            font-weight: 900;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+        }
+
+        .bio-box {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .pfp {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        }
+
+        .visualizer-wrapper {
+            width: 100%;
+            height: 45px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            filter: drop-shadow(0 0 6px #ff0000);
+        }
+
         canvas { width: 100%; height: 100%; }
-        .info { display: flex; flex-direction: column; align-items: center; }
-        .socials { display: flex; gap: 25px; align-items: center; }
-        .socials a { color: #fff; font-size: 1.8rem; text-decoration: none; position: relative; transition: 0.3s; }
-        .roblox-wrapper { width: 26px; height: 26px; transform: rotate(-10deg); }
-        .roblox-svg { width: 100%; height: 100%; fill: #fff; }
-        .socials a:hover { color: #ff0000; }
-        .socials a:hover .roblox-svg { fill: #ff0000; }
 
-        /* SECRET TERMINAL - TOP LEFT RED TEXT */
+        .info { display: flex; flex-direction: column; align-items: center; }
+
+        .info h2 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .info p {
+            margin: 5px 0 20px 0;
+            color: #ececec; 
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .socials { display: flex; gap: 25px; align-items: center; }
+
+        .socials a {
+            color: #ffffff;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .roblox-wrapper { width: 26px; height: 26px; transform: rotate(-10deg); display: flex; align-items: center; }
+        .roblox-svg { width: 100%; height: 100%; fill: #ffffff; transition: fill 0.3s ease; }
+        .icon-label { position: absolute; bottom: -25px; font-size: 0.65rem; color: #ff0000; opacity: 0; transition: 0.3s; text-transform: uppercase; pointer-events: none; }
+        .socials a:hover { color: #ff0000; transform: scale(1.1); }
+        .socials a:hover .roblox-svg { fill: #ff0000; }
+        .socials a:hover .icon-label { opacity: 1; bottom: -20px; }
+
+        .copyright {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- SECRET ELEMENTS (HIDDEN UNTIL RHC IS ENTERED) --- */
+        #search-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(139, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        #easter-egg-input {
+            width: 300px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #ff0000;
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            outline: none;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
         #secret-terminal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -43,11 +201,10 @@
             display: none;
             padding: 20px;
             font-family: 'Courier New', monospace;
-            overflow: hidden;
         }
+
         .terminal-line { color: #ff0000; font-size: 1rem; margin: 0; line-height: 1.4; text-shadow: 0 0 3px #ff0000; }
 
-        /* SECRET FINAL WEBSITE LAYOUT */
         #hidden-website {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -57,69 +214,95 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #fff;
-            text-align: center;
         }
+
     </style>
 </head>
 <body>
 
-    <audio id="bg-music" loop crossorigin="anonymous"><source src="song.mp3" type="audio/mpeg"></audio>
+    <audio id="bg-music" loop crossorigin="anonymous">
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
 
-    <div id="entry-gate" onclick="unlock()"><div class="gate-circle">CLICK TO PROCEED</div></div>
+    <div id="entry-gate" onclick="unlock()">
+        <div class="gate-circle">click ts rn</div>
+    </div>
 
-    <div class="search-trigger" onclick="toggleSearch()"><i class="fas fa-search"></i></div>
+    <div class="search-trigger" onclick="toggleSearch()">
+        <i class="fas fa-search"></i>
+    </div>
 
     <div id="search-overlay" onclick="closeSearch(event)">
-        <div class="search-container"><input type="text" id="easter-egg-input" placeholder="ACCESS CODE"></div>
+        <div class="search-container">
+            <input type="text" id="easter-egg-input" placeholder="SEARCH...">
+        </div>
     </div>
 
     <div id="secret-terminal"></div>
 
     <div id="hidden-website">
         <h1 style="color: #ff0000; font-size: 3rem; letter-spacing: 15px;">VOID AREA</h1>
-        <p style="letter-spacing: 5px;">YOU HAVE ARRIVED.</p>
-        <div style="margin-top: 30px; border: 1px solid #ff0000; padding: 20px;">
-            <p>HIDDEN INFO: [Your text here]</p>
-            <a href="https://discord.gg/example" style="color: #ff0000;">PRIVATE LINK</a>
+        <p style="color: #fff; letter-spacing: 5px;">ACCESS GRANTED</p>
+        <div style="margin-top: 30px; border: 1px solid #ff0000; padding: 20px; color:#fff;">
+            <p>HIDDEN DATA GOES HERE</p>
         </div>
         <button onclick="location.reload()" style="margin-top: 50px; background: none; border: 1px solid #fff; color: #fff; padding: 10px 20px; cursor: pointer;">EXIT</button>
     </div>
 
-    <div class="header-name" id="main-header"><h1>ORAK</h1></div>
+    <div class="header-name">
+        <h1>ORAK</h1>
+    </div>
 
-    <div class="bio-box" id="main-content">
-        <img src="pfp.jpg" class="pfp">
+    <div class="bio-box">
+        <img src="pfp.jpg" alt="pfp" class="pfp" onerror="this.src='https://via.placeholder.com/150/000/fff?text=?'">
+        
         <div class="info">
-            <div class="visualizer-wrapper"><canvas id="visualizer-canvas"></canvas></div>
+            <div class="visualizer-wrapper">
+                <canvas id="visualizer-canvas"></canvas>
+            </div>
+            
             <h2>Kiritoni</h2>
             <p>GREEN FN</p>
+            
             <div class="socials">
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-discord"></i></a>
-                <a href="#"><div class="roblox-wrapper"><svg class="roblox-svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm14.5 14.5v-5h-5v5h5z"/></svg></div></a>
+                <a href="#"><i class="fab fa-youtube"></i><span class="icon-label">YouTube</span></a>
+                <a href="#"><i class="fab fa-discord"></i><span class="icon-label">Discord</span></a>
+                <a href="#">
+                    <div class="roblox-wrapper"><svg class="roblox-svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm14.5 14.5v-5h-5v5h5z"/></svg></div>
+                    <span class="icon-label">Roblox</span>
+                </a>
             </div>
         </div>
     </div>
 
+    <div class="copyright">
+        &copy; 2026 ORAK All Rights Reserved
+    </div>
+
     <script>
-        let audioCtx, analyser, dataArray, canvas, ctx, userIP = "LOADING...";
+        let audioCtx, analyser, dataArray, canvas, ctx, userIP = "UNAVAILABLE";
 
-        // Fetch User IP
-        fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => userIP = data.ip);
+        // Pre-fetch IP
+        fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => userIP = data.ip).catch(e => userIP = "127.0.0.1");
 
-        function toggleSearch() { document.getElementById('search-overlay').style.display = 'flex'; document.getElementById('easter-egg-input').focus(); }
-        function closeSearch(e) { if (e.target.id === 'search-overlay') document.getElementById('search-overlay').style.display = 'none'; }
+        function toggleSearch() {
+            document.getElementById('search-overlay').style.display = 'flex';
+            document.getElementById('easter-egg-input').focus();
+        }
+
+        function closeSearch(e) {
+            if (e.target.id === 'search-overlay') document.getElementById('search-overlay').style.display = 'none';
+        }
 
         document.getElementById('easter-egg-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 if (this.value.trim().toUpperCase() === 'RHC') {
                     document.getElementById('search-overlay').style.display = 'none';
-                    document.getElementById('main-content').style.opacity = '0';
-                    document.getElementById('main-header').style.opacity = '0';
                     startTerminal();
                 } else {
-                    this.value = ''; this.placeholder = 'DENIED';
+                    this.value = '';
+                    this.placeholder = 'DENIED';
+                    setTimeout(() => this.placeholder = 'SEARCH...', 1000);
                 }
             }
         });
@@ -129,14 +312,11 @@
             terminal.style.display = 'block';
             
             const lines = [
-                "> CONNECTION ESTABLISHED...",
-                "> TARGET LOCATED: " + userIP,
-                "> BREACHING FIREWALL...",
-                "> UPLOADING MALWARE...",
-                "> DECRYPTING VOID_DATABASE...",
+                "> BOOTING...",
+                "> TARGET: " + userIP,
+                "> STATUS: BREACHING...",
                 "> ACCESS GRANTED.",
-                "> BYPASSING SYSTEM_AUTH...",
-                "> REDIRECTING TO HIDDEN_SECTOR..."
+                "> REDIRECTING..."
             ];
 
             let lineIdx = 0;
@@ -146,27 +326,25 @@
                     p.className = 'terminal-line';
                     terminal.appendChild(p);
                     let charIdx = 0;
-                    let speed = 15; // Quicker speed
                     let interval = setInterval(() => {
                         p.textContent += lines[lineIdx][charIdx];
                         charIdx++;
                         if (charIdx === lines[lineIdx].length) {
                             clearInterval(interval);
                             lineIdx++;
-                            setTimeout(addLine, 100);
+                            setTimeout(addLine, 80);
                         }
-                    }, speed);
+                    }, 15);
                 } else {
                     setTimeout(() => {
                         terminal.style.display = 'none';
                         document.getElementById('hidden-website').style.display = 'flex';
-                    }, 1000);
+                    }, 800);
                 }
             }
             addLine();
         }
 
-        // --- Audio Visualizer Logic (Kept from previous steps) ---
         function unlock() {
             const music = document.getElementById('bg-music');
             music.volume = 0.5;
