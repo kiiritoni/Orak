@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orak</title>
     
-    <!-- Favicon - separate from pfp.jpg -->
-    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Improved Favicon Setup -->
+    <link rel="icon" type="image/png" href="favicon.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="favicon.png" sizes="16x16">
     <link rel="apple-touch-icon" href="favicon.png">
-    
+    <link rel="shortcut icon" href="favicon.png">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* ... all your existing styles stay exactly the same ... */
+        /* Your full styles (unchanged) */
         * { box-sizing: border-box; cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2.5" stroke-linecap="square"/></svg>') 12 12, crosshair; }
         body, html { margin: 0; padding: 0; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('bg.jpg') no-repeat center center fixed; background-size: cover; background-color: #000; color: #fff; font-family: 'Inter', sans-serif; height: 100vh; width: 100vw; overflow: hidden; display: flex; justify-content: center; align-items: center; }
         
@@ -53,10 +55,7 @@
             z-index: 10;
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
         }
-        #volume-slider {
-            width: 180px;
-            accent-color: #ff0000;
-        }
+        #volume-slider { width: 180px; accent-color: #ff0000; }
         .volume-icon { color: #ff0000; font-size: 1.1rem; }
         
         .info { display: flex; flex-direction: column; align-items: center; }
@@ -72,58 +71,25 @@
         .socials a:hover .roblox-svg { fill: #ff0000; }
         .socials a:hover .icon-label { opacity: 1; bottom: -20px; }
         
-        /* Discord Modal */
         #discord-modal {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(20px);
+            display: none; justify-content: center; align-items: center; z-index: 10000;
         }
         .modal-bubble {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid #ff0000;
-            border-radius: 30px;
-            padding: 40px 50px;
-            text-align: center;
-            max-width: 420px;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.9); border: 2px solid #ff0000;
+            border-radius: 30px; padding: 40px 50px; text-align: center;
+            max-width: 420px; box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
         }
-        .modal-bubble h3 {
-            color: #ff0000;
-            margin: 0 0 30px 0;
-            font-size: 1.4rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-        .modal-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
+        .modal-bubble h3 { color: #ff0000; margin: 0 0 30px 0; font-size: 1.4rem; letter-spacing: 3px; text-transform: uppercase; }
+        .modal-buttons { display: flex; gap: 15px; justify-content: center; }
         .modal-btn {
-            flex: 1;
-            padding: 16px 28px;
-            background: transparent;
-            color: #fff;
-            border: 2px solid #ff0000;
-            border-radius: 8px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s;
-            cursor: pointer;
+            flex: 1; padding: 16px 28px; background: transparent; color: #fff;
+            border: 2px solid #ff0000; border-radius: 8px; font-size: 1.05rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
+            transition: all 0.3s; cursor: pointer;
         }
-        .modal-btn:hover {
-            background: #ff0000;
-            color: #000;
-            transform: scale(1.05);
-        }
+        .modal-btn:hover { background: #ff0000; color: #000; transform: scale(1.05); }
         
         .copyright { position: absolute; bottom: 15px; left: 20px; font-size: 0.65rem; color: rgba(255, 255, 255, 0.4); text-transform: uppercase; letter-spacing: 2px; }
     </style>
@@ -177,9 +143,7 @@
         const volumeSlider = document.getElementById('volume-slider');
         let isSliderVisible = false;
 
-        volumeSlider.addEventListener('input', () => {
-            music.volume = parseFloat(volumeSlider.value);
-        });
+        volumeSlider.addEventListener('input', () => music.volume = parseFloat(volumeSlider.value));
 
         document.getElementById('visualizer-wrapper').addEventListener('click', (e) => {
             if (e.target.id === 'volume-slider') return;
@@ -192,40 +156,26 @@
             document.getElementById('discord-modal').style.display = 'flex';
         });
 
-        function closeDiscordModal() {
-            document.getElementById('discord-modal').style.display = 'none';
-        }
-
-        function joinServer() {
-            closeDiscordModal();
-            window.open('https://discord.gg/feCdW2BK5k', '_blank');
-        }
-
-        function addMe() {
-            closeDiscordModal();
-            window.open('https://discord.com/users/1500051454537236543', '_blank');
-        }
+        function closeDiscordModal() { document.getElementById('discord-modal').style.display = 'none'; }
+        function joinServer() { closeDiscordModal(); window.open('https://discord.gg/feCdW2BK5k', '_blank'); }
+        function addMe() { closeDiscordModal(); window.open('https://discord.com/users/1500051454537236543', '_blank'); }
 
         document.getElementById('discord-modal').addEventListener('click', (e) => {
             if (e.target.id === 'discord-modal') closeDiscordModal();
         });
 
         function unlock() {
-            music.volume = 0.5;
-            volumeSlider.value = 0.5;
-            
+            music.volume = 0.5; volumeSlider.value = 0.5;
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 analyser = audioCtx.createAnalyser();
                 const source = audioCtx.createMediaElementSource(music);
-                source.connect(analyser);
-                analyser.connect(audioCtx.destination);
+                source.connect(analyser); analyser.connect(audioCtx.destination);
                 analyser.fftSize = 64;
                 dataArray = new Uint8Array(analyser.frequencyBinCount);
                 canvas = document.getElementById('visualizer-canvas');
                 ctx = canvas.getContext('2d');
-                canvas.width = canvas.offsetWidth; 
-                canvas.height = canvas.offsetHeight;
+                canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
                 draw();
             }
             music.play();
@@ -241,7 +191,7 @@
             let x = 0;
             for (let i = 0; i < dataArray.length; i++) {
                 const barHeight = (dataArray[i] / 255) * canvas.height * 0.8;
-                ctx.fillStyle = 'white'; 
+                ctx.fillStyle = 'white';
                 ctx.fillRect(x, canvas.height - barHeight, barWidth - 3, barHeight);
                 x += barWidth;
             }
