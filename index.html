@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orak</title>
+    
+    <!-- Favicon - works when everything is in root -->
+    <link rel="icon" type="image/png" href="pfp.jpg">
+    <link rel="apple-touch-icon" href="pfp.jpg">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20" stroke="white" stroke-width="2.5" stroke-linecap="square"/></svg>') 12 12, crosshair; }
@@ -105,7 +110,7 @@
             background: transparent;
             color: #fff;
             border: 2px solid #ff0000;
-            border-radius: 8px; /* Changed to square look */
+            border-radius: 8px;
             font-size: 1.05rem;
             font-weight: 700;
             text-transform: uppercase;
@@ -123,6 +128,7 @@
     </style>
 </head>
 <body>
+    <!-- Rest of your body stays exactly the same -->
     <audio id="bg-music" loop crossorigin="anonymous"><source src="song.mp3" type="audio/mpeg"></audio>
     
     <div id="entry-gate" onclick="unlock()"><div class="gate-circle">click ts rn</div></div>
@@ -154,7 +160,6 @@
     
     <div class="copyright">&copy; 2026 ORAK All Rights Reserved</div>
 
-    <!-- Discord Modal -->
     <div id="discord-modal">
         <div class="modal-bubble">
             <h3>what would you like to do?</h3>
@@ -166,6 +171,7 @@
     </div>
 
     <script>
+        // (Script stays the same as last version)
         let audioCtx, analyser, dataArray, canvas, ctx;
         const music = document.getElementById('bg-music');
         const sliderContainer = document.getElementById('volume-slider-container');
@@ -182,7 +188,6 @@
             sliderContainer.style.display = isSliderVisible ? 'flex' : 'none';
         });
 
-        // Discord Modal
         document.getElementById('discord-link').addEventListener('click', (e) => {
             e.preventDefault();
             document.getElementById('discord-modal').style.display = 'flex';
