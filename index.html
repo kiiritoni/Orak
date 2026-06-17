@@ -13,6 +13,9 @@
         .gate-circle { width: 140px; height: 140px; border: 1px solid #ff0000; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #ff0000; text-transform: lowercase; font-size: 0.8rem; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
         
+        .search-trigger { position: absolute; top: 30px; left: 40px; font-size: 1.5rem; color: #fff; opacity: 0.5; transition: 0.3s; z-index: 500; cursor: pointer; }
+        .search-trigger:hover { opacity: 1; color: #ff0000; }
+        
         .header-name { position: absolute; top: 30px; right: 40px; }
         .header-name h1 { font-size: 1.8rem; color: #ff0000; text-transform: uppercase; letter-spacing: 6px; margin: 0; font-weight: 900; text-shadow: 0 0 15px rgba(255, 0, 0, 0.8); }
         
@@ -42,6 +45,9 @@
     <audio id="bg-music" loop crossorigin="anonymous"><source src="song.mp3" type="audio/mpeg"></audio>
     
     <div id="entry-gate" onclick="unlock()"><div class="gate-circle">click ts rn</div></div>
+    
+    <!-- Search icon in corner kept, but no overlay -->
+    <div class="search-trigger"><i class="fas fa-search"></i></div>
 
     <div class="header-name"><h1>ORAK</h1></div>
     
