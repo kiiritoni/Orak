@@ -19,8 +19,39 @@
         .bio-box { display: flex; align-items: center; gap: 30px; position: relative; z-index: 100; }
         .pfp { width: 110px; height: 110px; border-radius: 50%; border: 2px solid white; object-fit: cover; box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
         
-        .visualizer-wrapper { width: 100%; height: 45px; margin-bottom: 8px; display: flex; justify-content: center; align-items: flex-end; filter: drop-shadow(0 0 6px #ff0000); }
+        .visualizer-wrapper { 
+            width: 100%; 
+            height: 45px; 
+            margin-bottom: 8px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-end; 
+            filter: drop-shadow(0 0 6px #ff0000); 
+            position: relative;
+            cursor: pointer;
+        }
         canvas { width: 100%; height: 100%; }
+        
+        #volume-slider-container {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 1px solid #ff0000;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+        #volume-slider {
+            width: 180px;
+            accent-color: #ff0000;
+        }
+        .volume-icon { color: #ff0000; font-size: 1.1rem; }
         
         .info { display: flex; flex-direction: column; align-items: center; }
         .info h2 { margin: 0; font-size: 2.2rem; letter-spacing: 1px; color: #ffffff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
@@ -48,7 +79,13 @@
     <div class="bio-box">
         <img src="pfp.jpg" alt="pfp" class="pfp" onerror="this.src='https://via.placeholder.com/150/000/fff?text=?'">
         <div class="info">
-            <div class="visualizer-wrapper"><canvas id="visualizer-canvas"></canvas></div>
+            <div class="visualizer-wrapper" id="visualizer-wrapper">
+                <canvas id="visualizer-canvas"></canvas>
+                <div id="volume-slider-container">
+                    <span class="volume-icon">🔊</span>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+                </div>
+            </div>
             <h2>Erebos</h2>
             <p>GREEN FN</p>
             <div class="socials">
@@ -66,10 +103,33 @@
 
     <script>
         let audioCtx, analyser, dataArray, canvas, ctx;
-        
+        const music = document.getElementById('bg-music');
+        const sliderContainer = document.getElementById('volume-slider-container');
+        const volumeSlider = document.getElementById('volume-slider');
+        let isSliderVisible = false;
+
+        // Volume slider control
+        volumeSlider.addEventListener('input', () => {
+            music.volume = parseFloat(volumeSlider.value);
+        });
+
+        // Toggle slider on visualizer click
+        document.getElementById('visualizer-wrapper').addEventListener('click', (e) => {
+            // Prevent click from triggering when dragging slider
+            if (e.target.id === 'volume-slider') return;
+            
+            isSliderVisible = !isSliderVisible;
+            if (isSliderVisible) {
+                sliderContainer.style.display = 'flex';
+            } else {
+                sliderContainer.style.display = 'none';
+            }
+        });
+
         function unlock() {
-            const music = document.getElementById('bg-music');
             music.volume = 0.5;
+            volumeSlider.value = 0.5;
+            
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 analyser = audioCtx.createAnalyser();
