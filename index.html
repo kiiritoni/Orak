@@ -84,7 +84,7 @@
             border-radius: 30px;
             padding: 40px 50px;
             text-align: center;
-            max-width: 380px;
+            max-width: 420px;
             box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
         }
         .modal-bubble h3 {
@@ -94,16 +94,19 @@
             letter-spacing: 3px;
             text-transform: uppercase;
         }
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
         .modal-btn {
-            display: block;
-            width: 100%;
-            padding: 14px 30px;
-            margin: 12px 0;
+            flex: 1;
+            padding: 14px 24px;
             background: transparent;
             color: #fff;
             border: 2px solid #ff0000;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -140,10 +143,7 @@
             <p>GREEN FN</p>
             <div class="socials">
                 <a href="https://www.youtube.com/@K1ritoni" target="_blank"><i class="fab fa-youtube"></i><span class="icon-label">YouTube</span></a>
-                
-                <!-- Discord now triggers modal -->
                 <a href="#" id="discord-link"><i class="fab fa-discord"></i><span class="icon-label">Discord</span></a>
-                
                 <a href="https://www.robiox.com.py/users/243610785137/profile" target="_blank">
                     <div class="roblox-wrapper"><svg class="roblox-svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0zm14.5 14.5v-5h-5v5h5z"/></svg></div>
                     <span class="icon-label">Roblox</span>
@@ -158,8 +158,10 @@
     <div id="discord-modal">
         <div class="modal-bubble">
             <h3>what would you like to do?</h3>
-            <button class="modal-btn" onclick="joinServer()">Join Server</button>
-            <button class="modal-btn" onclick="addMe()">Add Me</button>
+            <div class="modal-buttons">
+                <button class="modal-btn" onclick="joinServer()">Join Server</button>
+                <button class="modal-btn" onclick="addMe()">Add Me</button>
+            </div>
         </div>
     </div>
 
@@ -180,7 +182,7 @@
             sliderContainer.style.display = isSliderVisible ? 'flex' : 'none';
         });
 
-        // Discord Modal Controls
+        // Discord Modal
         document.getElementById('discord-link').addEventListener('click', (e) => {
             e.preventDefault();
             document.getElementById('discord-modal').style.display = 'flex';
@@ -200,7 +202,6 @@
             window.open('https://discord.com/users/1500051454537236543', '_blank');
         }
 
-        // Close modal when clicking outside the bubble
         document.getElementById('discord-modal').addEventListener('click', (e) => {
             if (e.target.id === 'discord-modal') closeDiscordModal();
         });
