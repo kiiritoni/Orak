@@ -13,7 +13,6 @@
         .gate-circle { width: 140px; height: 140px; border: 1px solid #ff0000; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #ff0000; text-transform: lowercase; font-size: 0.8rem; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
         
-        .search-trigger { position: absolute; top: 30px; left: 40px; font-size: 1.5rem; color: #fff; opacity: 0.5; transition: 0.3s; z-index: 500; cursor: pointer; }
         .header-name { position: absolute; top: 30px; right: 40px; }
         .header-name h1 { font-size: 1.8rem; color: #ff0000; text-transform: uppercase; letter-spacing: 6px; margin: 0; font-weight: 900; text-shadow: 0 0 15px rgba(255, 0, 0, 0.8); }
         
@@ -43,12 +42,6 @@
     <audio id="bg-music" loop crossorigin="anonymous"><source src="song.mp3" type="audio/mpeg"></audio>
     
     <div id="entry-gate" onclick="unlock()"><div class="gate-circle">click ts rn</div></div>
-    <div class="search-trigger" onclick="toggleSearch()"><i class="fas fa-search"></i></div>
-    
-    <!-- Search overlay kept but stripped of any secret functionality -->
-    <div id="search-overlay" onclick="closeSearch(event)">
-        <div class="search-container"><input type="text" id="easter-egg-input" placeholder="SEARCH..."></div>
-    </div>
 
     <div class="header-name"><h1>ORAK</h1></div>
     
@@ -72,27 +65,8 @@
     <div class="copyright">&copy; 2026 ORAK All Rights Reserved</div>
 
     <script>
-        let audioCtx, analyser, dataArray, canvas, ctx, userIP = "UNAVAILABLE";
-        fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => userIP = data.ip).catch(e => userIP = "127.0.0.1");
-
-        function toggleSearch() { 
-            document.getElementById('search-overlay').style.display = 'flex'; 
-            document.getElementById('easter-egg-input').focus(); 
-        }
+        let audioCtx, analyser, dataArray, canvas, ctx;
         
-        function closeSearch(e) { 
-            if (e.target.id === 'search-overlay') document.getElementById('search-overlay').style.display = 'none'; 
-        }
-
-        // Easter egg input now does nothing (RHC trigger fully removed)
-        document.getElementById('easter-egg-input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                this.value = ''; 
-                this.placeholder = 'NO ACCESS';
-                setTimeout(() => this.placeholder = 'SEARCH...', 1200);
-            }
-        });
-
         function unlock() {
             const music = document.getElementById('bg-music');
             music.volume = 0.5;
